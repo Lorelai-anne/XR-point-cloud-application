@@ -28,7 +28,6 @@ class Program
     static Sprite powerButton;
     static SceneType sceneCategory = SceneType.Programs;
 
-    public static LogWindow WindowLog;
     public static bool WindowDemoShow = false;
 
     static void Main(string[] args)
@@ -53,8 +52,6 @@ class Program
         // LogWindow for early log registration!
         SK.AddStepper<PassthroughFBExt>();
         //SK.AddStepper<Win32PerformanceCounterExt>();
-        WindowLog = SK.AddStepper<LogWindow>();
-        WindowLog.Enabled = false;
 
         // Initialize StereoKit
         if (!SK.Initialize(settings))

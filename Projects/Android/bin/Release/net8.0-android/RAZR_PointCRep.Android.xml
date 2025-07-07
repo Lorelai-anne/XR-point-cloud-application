@@ -4,17 +4,16 @@
         <name>RAZR_PointCRep.Android</name>
     </assembly>
     <members>
-        <member name="F:RAZR_PointCRep.ShowRayMesh.sphereMesh">
-             :CodeSample: Ray.Intersect Mesh.Intersect
-             ### Ray Mesh Intersection
-             Here's an example of casting a Ray at a mesh someplace in world space,
-             transforming it into model space, calculating the intersection point,
-             and displaying it back in world space.
-             
-             ![Ray Mesh Intersection]({{site.url}}/img/screenshots/RayMeshIntersect.jpg)
+        <member name="F:ShowAssets.filteredAssets">
+             :CodeSample: Assets Assets.Type
+             ### Simple Asset Browser
+             A full asset browser might have a few more features, but here's a quick
+             and dirty window that will provide a filtered list of the current
+             live assets!
             
+             ![An overly simple asset browser window]({{site.screen_url}}/TinyAssetBrowser.jpg)
         </member>
-        <member name="M:RAZR_PointCRep.ShowRayMesh.Initialize">
+        <member name="M:ShowAssets.Initialize">
             :End:
         </member>
         <member name="F:Program.lastFocus">

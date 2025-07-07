@@ -9,7 +9,7 @@ using static Android.Media.TV.TvContract.Channels;
 
 namespace RAZR_PointCRep
 {
-    internal class ShowWelcome : IClass
+    internal class Welcome : IClass
     {
         string message = "Welcome! This is a stereokit based project used to show point cloud representations from the RAZR. Made summer 2025";
         public void Initialize()

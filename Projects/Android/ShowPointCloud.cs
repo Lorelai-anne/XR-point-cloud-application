@@ -95,29 +95,9 @@ namespace RAZR_PointCRep
 
         public void Initialize() // currently drawing points for sphere, if file picker not working, change this
         {
-            const int xCount = 24;
-            const int yCount = 16;
-            Vertex[] points = new Vertex[xCount * yCount];
-            for (int y = 0; y < yCount; y++)
-            {
-                for (int x = 0; x < xCount; x++)
-                {
-                    float u = x / (float)xCount;
-                    float v = y / (float)yCount;
-                    int i = x + y * xCount;
-
-                    float theta = u * (float)Math.PI * 2.0f;
-                    float phi = (v - 0.5f) * (float)Math.PI;
-                    float c = SKMath.Cos(phi);
-
-                    points[i].pos = V.XYZ(c * SKMath.Cos(theta), SKMath.Sin(phi), c * SKMath.Sin(theta)) * 0.2f;
-                    points[i].col = Color.HSV(u, v, 1).ToLinear();
-                }
-            }
-
-            // Make a point cloud out of the points!
-            cloud = new PointCloud(pointSize, points);
-            cloudScale = 1;
+            Model model = Model.FromFile("DamagedHelmet.gltf");
+            cloud = new PointCloud(pointSize, model);
+            cloudScale = 0.5f / model.Bounds.dimensions.Length;
         }
 
         public void Shutdown()
@@ -146,7 +126,7 @@ namespace RAZR_PointCRep
             Pose menuPose = new Pose(
                 at,
                 Quat.LookAt(at, across, at - down) * Quat.FromAngles(0, handed == Handed.Left ? 90 : -90, 0));
-            menuPose.position += menuPose.Right * offset * 0.025f;
+            menuPose.position += menuPose.Right * offset * 0.03f;
             menuPose.position += menuPose.Up * (size.y / 2) * U.cm;
 
             UI.WindowBegin("Point Cloud", ref menuPose);
