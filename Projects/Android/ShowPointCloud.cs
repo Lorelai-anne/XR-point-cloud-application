@@ -2,6 +2,7 @@
 using StereoKit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 public class PointCloud
@@ -90,12 +91,13 @@ namespace RAZR_PointCRep
     {
         Model model = Model.FromFile("cube.obj");
         Model model2 = Model.FromFile("DamagedHelmet.gltf");
+        Model model3 = Model.FromFile("Cosmonaut.glb");
+        Model model6 = Model.FromFile("suzanne_bin.stl");
 
         Pose cloudPose = (Matrix.T(0.2f, -0.1f, 0) * (Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1)))).Pose;
         float cloudScale = 1;
         PointCloud cloud;
 
-        Pose settingsPose = (Matrix.T(-0.2f, 0, 0) * (Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1)))).Pose;
         float pointSize = 0.01f;
 
         public void Initialize() // currently drawing points for sphere, if file picker not working, change this
@@ -110,7 +112,6 @@ namespace RAZR_PointCRep
 
         List<IAsset> filteredAssets = new List<IAsset>();
         Type filterType = typeof(IAsset);
-        Pose filterWindow = (Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
         float filterScroll = 0;
         const int filterScrollCt = 12;
         void VisualizeModel(Model item)
@@ -151,7 +152,7 @@ namespace RAZR_PointCRep
 
             if (UI.Radio("Model", filterType == typeof(Model), size1)) UpdateFilter(typeof(Model));
             UI.SameLine();
-            if (UI.Radio("All", filterType == typeof(IAsset), size1)) UpdateFilter(typeof(IAsset));
+            //if (UI.Radio("All", filterType == typeof(IAsset), size1)) UpdateFilter(typeof(IAsset));
 
             UI.LayoutPop();
 
@@ -160,8 +161,7 @@ namespace RAZR_PointCRep
             UI.LayoutPop();
 
 
-            // We can visualize some of these assets, and just draw a label for
-            // some others.
+            // Used to visual the models in the button, as well as create a button with the asset visualization and name
             for (int i = (int)filterScroll; i < Math.Min(filteredAssets.Count, (int)filterScroll + filterScrollCt); i++)
             {
                 IAsset asset = filteredAssets[i];
@@ -171,7 +171,7 @@ namespace RAZR_PointCRep
                     case Model item: VisualizeModel(item); break;
                 }
                 UI.PopId();
-                if (UI.Button(string.IsNullOrEmpty(asset.Id) ? "(null)" : asset.Id, V.XY(UI.LayoutRemaining.x, 0)))
+                if (UI.Button(string.IsNullOrEmpty(asset.Id) ? "(null)" : asset.Id, V.XY(UI.LayoutRemaining.x, 0))) // When pressed, will create point cloud of model based of of vertices in model
                 {
                     Model model = Model.FromFile(string.IsNullOrEmpty(asset.Id) ? "(null)" : asset.Id);
                     cloud = new PointCloud(pointSize, model);
@@ -181,6 +181,8 @@ namespace RAZR_PointCRep
             UI.WindowEnd();
         }
 
+
+        // Think of this almost as the 'main' method of the class
         bool winEn = false;
         Pose simpleWinPose = (Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
         public void Step()
@@ -190,7 +192,7 @@ namespace RAZR_PointCRep
 
             cloud.Draw(cloudPose.ToMatrix(cloudScale));
 
-            if (!HandFacingHead(handed))
+            if (!HandFacingHead(handed)) //if palm not facing head, skip window
                 return;
 
             // Decide the size and offset of the menu
@@ -212,7 +214,7 @@ namespace RAZR_PointCRep
             {
                 if (UI.Toggle("Load Model",ref secWin))
                 {
-                    winEn = !winEn;
+                    winEn = !winEn; //used to initialize and uninitialize asset file window
                 }
                 UI.HSlider("Cloud Scale", ref cloudScale, 0.001f, 2, 0);
 
@@ -225,7 +227,7 @@ namespace RAZR_PointCRep
                 UI.SameLine();
                 if (UI.Radio("Perspective", !cloud.DistanceIndependantSize)) cloud.DistanceIndependantSize = false;
 
-                UI.Label("Size:", V.XY(.04f, 0));
+                UI.Label("Size:", V.XY(.04f, 0)); //Adjust size of points
                 UI.SameLine();
                 if (UI.HSlider("Point Size", ref pointSize, 0.001f, 0.1f, 0))
                     cloud.PointSize = pointSize;
@@ -235,7 +237,7 @@ namespace RAZR_PointCRep
 
             if (winEn)
             {
-                AssetWindow();
+                AssetWindow(); //if bool is true, enable window. WIll automatically uninitialize window if false since it checks per frame
             }
         }
 

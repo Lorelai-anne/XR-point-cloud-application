@@ -9,6 +9,7 @@ using System;
 
 class Program
 {
+
     // This is the starting scene, and can be overridden by passing
     // -start <testname> via the CLI.
     static string startTest = "welcome";
@@ -95,10 +96,8 @@ class Program
         if (Input.Key(Key.Esc).IsJustActive())
             SK.Quit();
 
-        /// :CodeSample: Projection Renderer.Projection
-        /// ### Toggling the projection mode
-        /// Only in flatscreen apps, there is the option to change the main
-        /// camera's projection mode between perspective and orthographic.
+        // Only in flatscreen apps, there is the option to change the main
+        // camera's projection mode between perspective and orthographic.
         if (SK.ActiveDisplayMode == DisplayMode.Flatscreen &&
             Input.Key(Key.P).IsJustActive())
         {
@@ -106,7 +105,6 @@ class Program
                 ? Projection.Ortho
                 : Projection.Perspective;
         }
-        /// :End:
 
         // If we can't see the world, we'll draw a floor!
         if (Device.DisplayBlend == DisplayBlend.Opaque)

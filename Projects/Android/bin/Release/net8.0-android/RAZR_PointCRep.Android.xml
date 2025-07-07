@@ -4,28 +4,6 @@
         <name>RAZR_PointCRep.Android</name>
     </assembly>
     <members>
-        <member name="F:ShowAssets.filteredAssets">
-             :CodeSample: Assets Assets.Type
-             ### Simple Asset Browser
-             A full asset browser might have a few more features, but here's a quick
-             and dirty window that will provide a filtered list of the current
-             live assets!
-            
-             ![An overly simple asset browser window]({{site.screen_url}}/TinyAssetBrowser.jpg)
-        </member>
-        <member name="M:ShowAssets.Initialize">
-            :End:
-        </member>
-        <member name="M:ShowPicker.OnLoadModel(System.String)">
-            :CodeSample: Platform.FilePicker Platform.FilePickerVisible
-            Once you have the filename, it's simply a matter of loading it
-            from file. This is an example of async loading a model, and 
-            calculating a scale value that ensures the model is a reasonable
-            size.
-        </member>
-        <member name="M:ShowPicker.ShowNodes(StereoKit.Model,StereoKit.Material)">
-            :End:
-        </member>
         <member name="F:Program.lastFocus">
             :CodeSample: AppFocus SK.AppFocus
             ### Checking for changes in application focus
