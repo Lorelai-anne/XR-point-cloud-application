@@ -1,0 +1,22 @@
+Hash 32     Hash 64             Blob ID  Blob idx  Name
+0x17969339  0x583a3a4ac2a7a0f8  000      0000      _Microsoft.Android.Resource.Designer
+0x6886c9d4  0xcfddc35858deba23  000      0001      StereoKit
+0x274163d7  0xd18f392ecad27488  000      0002      RAZR_PointCRep.Android
+0xe2098b0b  0xec090a90408c8cd4  000      0003      System.Collections.NonGeneric
+0x1a61054f  0x7198e33f4794aa70  000      0004      System.Collections
+0xb660be12  0xecc8e986518c9786  000      0005      System.ComponentModel.Primitives
+0x408b17f4  0x3a5e0299f7e7ad93  000      0006      System.ComponentModel.TypeConverter
+0x7ec9ffe9  0xd77dbb1e38cd3d6f  000      0007      System.Console
+0x480a69ad  0x695e410af5b2aa54  000      0008      System.Diagnostics.Process
+0x4eed2679  0x64e71ccf51a90a5a  000      0009      System.Linq
+0x7c9bf920  0x5faf683aead1ad72  000      0010      System.Numerics.Vectors
+0x1dbae811  0x67ee71ff6b419e3f  000      0011      System.ObjectModel
+0x06ffddbc  0x9f6614bf0f8b71b6  000      0012      System.Runtime.InteropServices
+0x62c6282e  0x22a7eb7046413568  000      0013      System.Runtime
+0x028aa24d  0x0a6ba5a4da7d1ff8  000      0014      System.Threading.Thread
+0x41761b2c  0xe03056ea4e39aa26  000      0015      System
+0xcc7d82b4  0xa0f429ca8d1805c9  000      0016      netstandard
+0xc8a662e9  0x77b654e585b55834  000      0017      Java.Interop
+0xb65adef9  0x1500eaa8245f6c5b  000      0018      Mono.Android.Runtime
+0xcf3163e6  0x01accec39cafe242  000      0019      Mono.Android
+0xad6f1e8a  0x6b0ff375198b9c17  001      0000      System.Private.CoreLib

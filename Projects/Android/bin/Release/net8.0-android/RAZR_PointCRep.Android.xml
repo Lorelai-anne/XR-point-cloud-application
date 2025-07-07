@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RAZR_PointCRep.Android</name>
+    </assembly>
+    <members>
+        <member name="F:RAZR_PointCRep.ShowRayMesh.sphereMesh">
+             :CodeSample: Ray.Intersect Mesh.Intersect
+             ### Ray Mesh Intersection
+             Here's an example of casting a Ray at a mesh someplace in world space,
+             transforming it into model space, calculating the intersection point,
+             and displaying it back in world space.
+             
+             ![Ray Mesh Intersection]({{site.url}}/img/screenshots/RayMeshIntersect.jpg)
+            
+        </member>
+        <member name="M:RAZR_PointCRep.ShowRayMesh.Initialize">
+            :End:
+        </member>
+        <member name="F:Program.lastFocus">
+            :CodeSample: AppFocus SK.AppFocus
+            ### Checking for changes in application focus
+        </member>
+        <member name="M:Program.ParamPresent(System.String[],System.String)">
+            :End:
+        </member>
+    </members>
+</doc>

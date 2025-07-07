@@ -1,0 +1,3 @@
+RAZR_PointCRep.MainActivity, RAZR_PointCRep.Android;crc649bbba407d2477f6e.MainActivity
+RAZR_PointCRep.MainActivity;crc649bbba407d2477f6e.MainActivity
+razr_pointcrep.MainActivity;crc649bbba407d2477f6e.MainActivity

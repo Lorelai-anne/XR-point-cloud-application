@@ -126,9 +126,30 @@ namespace RAZR_PointCRep
 
         public void Step()
         {
+            Handed handed = Handed.Left;
+
             cloud.Draw(cloudPose.ToMatrix(cloudScale));
 
-            UI.WindowBegin("Point Cloud", ref settingsPose);
+            if (!HandFacingHead(handed))
+                return;
+
+            // Decide the size and offset of the menu
+            Vec2 size = new Vec2(4, 16);
+            float offset = handed == Handed.Left ? -2 - size.x : 2 + size.x;
+
+            // Position the menu relative to the side of the hand
+            Hand hand = Input.Hand(handed);
+            Vec3 at = hand[FingerId.Little, JointId.KnuckleMajor].position;
+            Vec3 down = hand[FingerId.Little, JointId.Root].position;
+            Vec3 across = hand[FingerId.Index, JointId.KnuckleMajor].position;
+
+            Pose menuPose = new Pose(
+                at,
+                Quat.LookAt(at, across, at - down) * Quat.FromAngles(0, handed == Handed.Left ? 90 : -90, 0));
+            menuPose.position += menuPose.Right * offset * 0.025f;
+            menuPose.position += menuPose.Up * (size.y / 2) * U.cm;
+
+            UI.WindowBegin("Point Cloud", ref menuPose);
             {
                 if (UI.Button("Load Model"))
                 {
@@ -157,6 +178,18 @@ namespace RAZR_PointCRep
                 UI.PanelEnd();
             }
             UI.WindowEnd();
+        }
+
+        static bool HandFacingHead(Handed handed)
+        {
+            Hand hand = Input.Hand(handed);
+            if (!hand.IsTracked)
+                return false;
+
+            Vec3 palmDirection = (hand.palm.Forward).Normalized;
+            Vec3 directionToHead = (Input.Head.position - hand.palm.position).Normalized;
+
+            return Vec3.Dot(palmDirection, directionToHead) > 0.5f;
         }
     }
 }
