@@ -1,5 +1,7 @@
-﻿using StereoKit;
+﻿using Java.Util;
+using StereoKit;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public class PointCloud
@@ -86,6 +88,9 @@ namespace RAZR_PointCRep
 {
     internal class ShowPointCloud : IClass
     {
+        Model model = Model.FromFile("cube.obj");
+        Model model2 = Model.FromFile("DamagedHelmet.gltf");
+
         Pose cloudPose = (Matrix.T(0.2f, -0.1f, 0) * (Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1)))).Pose;
         float cloudScale = 1;
         PointCloud cloud;
@@ -95,7 +100,6 @@ namespace RAZR_PointCRep
 
         public void Initialize() // currently drawing points for sphere, if file picker not working, change this
         {
-            Model model = Model.FromFile("DamagedHelmet.gltf");
             cloud = new PointCloud(pointSize, model);
             cloudScale = 0.5f / model.Bounds.dimensions.Length;
         }
@@ -104,8 +108,84 @@ namespace RAZR_PointCRep
         {
         }
 
+        List<IAsset> filteredAssets = new List<IAsset>();
+        Type filterType = typeof(IAsset);
+        Pose filterWindow = (Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
+        float filterScroll = 0;
+        const int filterScrollCt = 12;
+        void VisualizeModel(Model item)
+        {
+            UI.Model(item, V.XX(UI.LineHeight));
+            UI.SameLine();
+        }
+        void UpdateFilter(Type type)
+        {
+            filterType = type;
+            filterScroll = 0.0f;
+            filteredAssets.Clear();
+
+            // Here's where the magic happens! `Assets.Type` can take a Type, or a
+            // generic <T>, and will give a list of all assets that match that
+            // type!
+            filteredAssets.AddRange(Assets.Type(filterType));
+        }
+
+        // Shows Models availible to use for point clouds
+        //originally going to use file picker, according to research it doesn't run natively on stereokit
+        public void AssetWindow()
+        {
+            UISettings settings = UI.Settings;
+            float height = filterScrollCt * (UI.LineHeight + settings.gutter) + settings.margin * 2;
+
+            UI.WindowBegin("Menu", ref simpleWinPose, V.XY(0.5f, height));
+                UI.LayoutPushCut(UICut.Left, 0.08f);
+            UI.PanelAt(UI.LayoutAt, UI.LayoutRemaining);
+
+            UI.Label("Filter");
+
+            UI.HSeparator();
+
+            Vec2 size1 = new Vec2(0.08f, 0);
+
+            // A radio button selection for what to filter by
+
+            if (UI.Radio("Model", filterType == typeof(Model), size1)) UpdateFilter(typeof(Model));
+            UI.SameLine();
+            if (UI.Radio("All", filterType == typeof(IAsset), size1)) UpdateFilter(typeof(IAsset));
+
+            UI.LayoutPop();
+
+            UI.LayoutPushCut(UICut.Right, UI.LineHeight);
+            UI.VSlider("scroll", ref filterScroll, 0, Math.Max(0, filteredAssets.Count - 3), 1, 0, UIConfirm.Pinch);
+            UI.LayoutPop();
+
+
+            // We can visualize some of these assets, and just draw a label for
+            // some others.
+            for (int i = (int)filterScroll; i < Math.Min(filteredAssets.Count, (int)filterScroll + filterScrollCt); i++)
+            {
+                IAsset asset = filteredAssets[i];
+                UI.PushId(i);
+                switch (asset)
+                {
+                    case Model item: VisualizeModel(item); break;
+                }
+                UI.PopId();
+                if (UI.Button(string.IsNullOrEmpty(asset.Id) ? "(null)" : asset.Id, V.XY(UI.LayoutRemaining.x, 0)))
+                {
+                    Model model = Model.FromFile(string.IsNullOrEmpty(asset.Id) ? "(null)" : asset.Id);
+                    cloud = new PointCloud(pointSize, model);
+                    cloudScale = 0.5f / model.Bounds.dimensions.Length;
+                }
+            }
+            UI.WindowEnd();
+        }
+
+        bool winEn = false;
+        Pose simpleWinPose = (Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
         public void Step()
         {
+            bool secWin = winEn;
             Handed handed = Handed.Left;
 
             cloud.Draw(cloudPose.ToMatrix(cloudScale));
@@ -128,17 +208,11 @@ namespace RAZR_PointCRep
                 Quat.LookAt(at, across, at - down) * Quat.FromAngles(0, handed == Handed.Left ? 90 : -90, 0));
             menuPose.position += menuPose.Right * offset * 0.03f;
             menuPose.position += menuPose.Up * (size.y / 2) * U.cm;
-
             UI.WindowBegin("Point Cloud", ref menuPose);
             {
-                if (UI.Button("Load Model"))
+                if (UI.Toggle("Load Model",ref secWin))
                 {
-                    Platform.FilePicker(PickerMode.Open, (file) =>
-                    {
-                        Model model = Model.FromFile(file);
-                        cloud = new PointCloud(pointSize, model);
-                        cloudScale = 0.5f / model.Bounds.dimensions.Length;
-                    }, null, Assets.ModelFormats);
+                    winEn = !winEn;
                 }
                 UI.HSlider("Cloud Scale", ref cloudScale, 0.001f, 2, 0);
 
@@ -158,6 +232,11 @@ namespace RAZR_PointCRep
                 UI.PanelEnd();
             }
             UI.WindowEnd();
+
+            if (winEn)
+            {
+                AssetWindow();
+            }
         }
 
         static bool HandFacingHead(Handed handed)

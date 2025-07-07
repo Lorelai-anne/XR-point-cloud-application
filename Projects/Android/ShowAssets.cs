@@ -32,6 +32,7 @@ class ShowAssets : IClass
         filterScroll = 0.0f;
         filteredAssets.Clear();
 
+
         // Here's where the magic happens! `Assets.Type` can take a Type, or a
         // generic <T>, and will give a list of all assets that match that
         // type!
@@ -55,20 +56,6 @@ class ShowAssets : IClass
         Vec2 size = new Vec2(0.08f, 0);
         if (UI.Radio("Model", filterType == typeof(Model), size)) UpdateFilter(typeof(Model));
         UI.SameLine();
-        if (UI.Radio("Mesh", filterType == typeof(Mesh), size)) UpdateFilter(typeof(Mesh));
-        UI.SameLine();
-        if (UI.Radio("Material", filterType == typeof(Material), size)) UpdateFilter(typeof(Material));
-        UI.SameLine();
-        if (UI.Radio("Sprite", filterType == typeof(Sprite), size)) UpdateFilter(typeof(Sprite));
-        UI.SameLine();
-        if (UI.Radio("Sound", filterType == typeof(Sound), size)) UpdateFilter(typeof(Sound));
-        UI.SameLine();
-        if (UI.Radio("Font", filterType == typeof(Font), size)) UpdateFilter(typeof(Font));
-        UI.SameLine();
-        if (UI.Radio("Shader", filterType == typeof(Shader), size)) UpdateFilter(typeof(Shader));
-        UI.SameLine();
-        if (UI.Radio("Tex", filterType == typeof(Tex), size)) UpdateFilter(typeof(Tex));
-        UI.SameLine();
         if (UI.Radio("All", filterType == typeof(IAsset), size)) UpdateFilter(typeof(IAsset));
 
         UI.LayoutPop();
@@ -86,16 +73,15 @@ class ShowAssets : IClass
             UI.PushId(i);
             switch (asset)
             {
-                case Mesh item: VisualizeMesh(item); break;
-                case Material item: VisualizeMaterial(item); break;
-                case Sprite item: VisualizeSprite(item); break;
                 case Model item: VisualizeModel(item); break;
-                case Sound item: VisualizeSound(item); break;
             }
             UI.PopId();
-            UI.Label(string.IsNullOrEmpty(asset.Id) ? "(null)" : asset.Id, V.XY(UI.LayoutRemaining.x, 0));
+            if (UI.Button(string.IsNullOrEmpty(asset.Id) ? "(null)" : asset.Id, V.XY(UI.LayoutRemaining.x, 0)))
+            {
+                Model model = Model.FromFile(string.IsNullOrEmpty(asset.Id) ? "(null)" : asset.Id);
+                model.Draw(Matrix.T(0.2f, 0, 0));
+            }
         }
-
         UI.WindowEnd();
     }
 

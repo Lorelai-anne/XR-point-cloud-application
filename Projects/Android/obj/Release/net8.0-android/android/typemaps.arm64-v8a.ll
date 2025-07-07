@@ -33,23 +33,23 @@ target triple = "aarch64-unknown-linux-android21"
 ; Managed modules map
 @map_modules = dso_local local_unnamed_addr global [2 x %struct.TypeMapModule] [
 	%struct.TypeMapModule {
-		[16 x i8] c"\0D*\12y\19:\FDB\AB\B2\94a,\DA\BF?", ; module_uuid: 79122a0d-3a19-42fd-abb2-94612cdabf3f
-		i32 43, ; uint32_t entry_count (0x2b)
-		i32 12, ; uint32_t duplicate_count (0xc)
+		[16 x i8] c"\06l$@\18\F8\DCO\A8\ED,V\EC\E3C\CB", ; module_uuid: 40246c06-f818-4fdc-a8ed-2c56ece343cb
+		i32 1, ; uint32_t entry_count (0x1)
+		i32 0, ; uint32_t duplicate_count (0x0)
 		ptr @module0_managed_to_java, ; TypeMapModuleEntry* map
-		ptr @module0_managed_to_java_duplicates, ; TypeMapModuleEntry* duplicate_map
-		ptr @.TypeMapModule.0_assembly_name, ; assembly_name: Mono.Android
+		ptr null, ; TypeMapModuleEntry* duplicate_map
+		ptr @.TypeMapModule.0_assembly_name, ; assembly_name: RAZR_PointCRep.Android
 		ptr null, ; MonoImage* image
 		i32 0, ; uint32_t java_name_width (0x0)
 		ptr null; uint8_t* java_map (0x0)
 	}, ; 0
 	%struct.TypeMapModule {
-		[16 x i8] c"\F1H\E7\0B\A8\CA\D3I\9E\B9\86\B9\B2_\AB\8B", ; module_uuid: 0be748f1-caa8-49d3-9eb9-86b9b25fab8b
-		i32 1, ; uint32_t entry_count (0x1)
-		i32 0, ; uint32_t duplicate_count (0x0)
+		[16 x i8] c"\0D*\12y\19:\FDB\AB\B2\94a,\DA\BF?", ; module_uuid: 79122a0d-3a19-42fd-abb2-94612cdabf3f
+		i32 43, ; uint32_t entry_count (0x2b)
+		i32 12, ; uint32_t duplicate_count (0xc)
 		ptr @module1_managed_to_java, ; TypeMapModuleEntry* map
-		ptr null, ; TypeMapModuleEntry* duplicate_map
-		ptr @.TypeMapModule.1_assembly_name, ; assembly_name: RAZR_PointCRep.Android
+		ptr @module1_managed_to_java_duplicates, ; TypeMapModuleEntry* duplicate_map
+		ptr @.TypeMapModule.1_assembly_name, ; assembly_name: Mono.Android
 		ptr null, ; MonoImage* image
 		i32 0, ; uint32_t java_name_width (0x0)
 		ptr null; uint8_t* java_map (0x0)
@@ -104,7 +104,14 @@ target triple = "aarch64-unknown-linux-android21"
 	i64 17125416866214736517 ; 43: 0xeda9b3e7cd367285 => java/io/OutputStream
 ], align 8
 
-@module0_managed_to_java = internal dso_local constant [43 x %struct.TypeMapModuleEntry] [
+@module0_managed_to_java = internal dso_local constant [1 x %struct.TypeMapModuleEntry] [
+	%struct.TypeMapModuleEntry {
+		i32 33554444, ; uint32_t type_token_id (0x200000c)
+		i32 36; uint32_t java_map_index (0x24)
+	} ; 0
+], align 4
+
+@module1_managed_to_java = internal dso_local constant [43 x %struct.TypeMapModuleEntry] [
 	%struct.TypeMapModuleEntry {
 		i32 33554488, ; uint32_t type_token_id (0x2000038)
 		i32 31; uint32_t java_map_index (0x1f)
@@ -279,7 +286,7 @@ target triple = "aarch64-unknown-linux-android21"
 	} ; 42
 ], align 4
 
-@module0_managed_to_java_duplicates = internal dso_local constant [12 x %struct.TypeMapModuleEntry] [
+@module1_managed_to_java_duplicates = internal dso_local constant [12 x %struct.TypeMapModuleEntry] [
 	%struct.TypeMapModuleEntry {
 		i32 33554489, ; uint32_t type_token_id (0x2000039)
 		i32 31; uint32_t java_map_index (0x1f)
@@ -330,234 +337,227 @@ target triple = "aarch64-unknown-linux-android21"
 	} ; 11
 ], align 4
 
-@module1_managed_to_java = internal dso_local constant [1 x %struct.TypeMapModuleEntry] [
-	%struct.TypeMapModuleEntry {
-		i32 33554443, ; uint32_t type_token_id (0x200000b)
-		i32 36; uint32_t java_map_index (0x24)
-	} ; 0
-], align 4
-
 ; Java to managed map
 @map_java = dso_local local_unnamed_addr constant [44 x %struct.TypeMapJava] [
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554579, ; uint32_t type_token_id (0x2000093)
-		i32 38; uint32_t java_name_index (0x26)
+		i32 39; uint32_t java_name_index (0x27)
 	}, ; 0
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554491, ; uint32_t type_token_id (0x200003b)
-		i32 2; uint32_t java_name_index (0x2)
+		i32 3; uint32_t java_name_index (0x3)
 	}, ; 1
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554573, ; uint32_t type_token_id (0x200008d)
-		i32 33; uint32_t java_name_index (0x21)
+		i32 34; uint32_t java_name_index (0x22)
 	}, ; 2
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554561, ; uint32_t type_token_id (0x2000081)
-		i32 24; uint32_t java_name_index (0x18)
+		i32 25; uint32_t java_name_index (0x19)
 	}, ; 3
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554534, ; uint32_t type_token_id (0x2000066)
-		i32 16; uint32_t java_name_index (0x10)
+		i32 17; uint32_t java_name_index (0x11)
 	}, ; 4
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554490, ; uint32_t type_token_id (0x200003a)
-		i32 1; uint32_t java_name_index (0x1)
+		i32 2; uint32_t java_name_index (0x2)
 	}, ; 5
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554564, ; uint32_t type_token_id (0x2000084)
-		i32 26; uint32_t java_name_index (0x1a)
+		i32 27; uint32_t java_name_index (0x1b)
 	}, ; 6
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554562, ; uint32_t type_token_id (0x2000082)
-		i32 25; uint32_t java_name_index (0x19)
+		i32 26; uint32_t java_name_index (0x1a)
 	}, ; 7
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 0, ; uint32_t type_token_id (0x0)
-		i32 11; uint32_t java_name_index (0xb)
+		i32 12; uint32_t java_name_index (0xc)
 	}, ; 8
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554576, ; uint32_t type_token_id (0x2000090)
-		i32 35; uint32_t java_name_index (0x23)
+		i32 36; uint32_t java_name_index (0x24)
 	}, ; 9
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554510, ; uint32_t type_token_id (0x200004e)
-		i32 14; uint32_t java_name_index (0xe)
+		i32 15; uint32_t java_name_index (0xf)
 	}, ; 10
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554567, ; uint32_t type_token_id (0x2000087)
-		i32 28; uint32_t java_name_index (0x1c)
+		i32 29; uint32_t java_name_index (0x1d)
 	}, ; 11
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 0, ; uint32_t type_token_id (0x0)
-		i32 9; uint32_t java_name_index (0x9)
-	}, ; 12
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554551, ; uint32_t type_token_id (0x2000077)
-		i32 18; uint32_t java_name_index (0x12)
-	}, ; 13
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554571, ; uint32_t type_token_id (0x200008b)
-		i32 31; uint32_t java_name_index (0x1f)
-	}, ; 14
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554572, ; uint32_t type_token_id (0x200008c)
-		i32 32; uint32_t java_name_index (0x20)
-	}, ; 15
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554508, ; uint32_t type_token_id (0x200004c)
-		i32 12; uint32_t java_name_index (0xc)
-	}, ; 16
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554559, ; uint32_t type_token_id (0x200007f)
-		i32 23; uint32_t java_name_index (0x17)
-	}, ; 17
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554556, ; uint32_t type_token_id (0x200007c)
-		i32 21; uint32_t java_name_index (0x15)
-	}, ; 18
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 0, ; uint32_t type_token_id (0x0)
-		i32 34; uint32_t java_name_index (0x22)
-	}, ; 19
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554581, ; uint32_t type_token_id (0x2000095)
-		i32 39; uint32_t java_name_index (0x27)
-	}, ; 20
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554496, ; uint32_t type_token_id (0x2000040)
-		i32 6; uint32_t java_name_index (0x6)
-	}, ; 21
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554492, ; uint32_t type_token_id (0x200003c)
-		i32 3; uint32_t java_name_index (0x3)
-	}, ; 22
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554582, ; uint32_t type_token_id (0x2000096)
-		i32 40; uint32_t java_name_index (0x28)
-	}, ; 23
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554509, ; uint32_t type_token_id (0x200004d)
-		i32 13; uint32_t java_name_index (0xd)
-	}, ; 24
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554554, ; uint32_t type_token_id (0x200007a)
-		i32 20; uint32_t java_name_index (0x14)
-	}, ; 25
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554493, ; uint32_t type_token_id (0x200003d)
-		i32 4; uint32_t java_name_index (0x4)
-	}, ; 26
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 0, ; uint32_t type_token_id (0x0)
 		i32 10; uint32_t java_name_index (0xa)
-	}, ; 27
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554594, ; uint32_t type_token_id (0x20000a2)
-		i32 42; uint32_t java_name_index (0x2a)
-	}, ; 28
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554552, ; uint32_t type_token_id (0x2000078)
-		i32 19; uint32_t java_name_index (0x13)
-	}, ; 29
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554568, ; uint32_t type_token_id (0x2000088)
-		i32 29; uint32_t java_name_index (0x1d)
-	}, ; 30
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 0, ; uint32_t type_token_id (0x0)
-		i32 0; uint32_t java_name_index (0x0)
-	}, ; 31
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554494, ; uint32_t type_token_id (0x200003e)
-		i32 5; uint32_t java_name_index (0x5)
-	}, ; 32
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554557, ; uint32_t type_token_id (0x200007d)
-		i32 22; uint32_t java_name_index (0x16)
-	}, ; 33
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554577, ; uint32_t type_token_id (0x2000091)
-		i32 36; uint32_t java_name_index (0x24)
-	}, ; 34
-	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
-		i32 33554545, ; uint32_t type_token_id (0x2000071)
-		i32 17; uint32_t java_name_index (0x11)
-	}, ; 35
+	}, ; 12
 	%struct.TypeMapJava {
 		i32 1, ; uint32_t module_index (0x1)
-		i32 33554443, ; uint32_t type_token_id (0x200000b)
+		i32 33554551, ; uint32_t type_token_id (0x2000077)
+		i32 19; uint32_t java_name_index (0x13)
+	}, ; 13
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554571, ; uint32_t type_token_id (0x200008b)
+		i32 32; uint32_t java_name_index (0x20)
+	}, ; 14
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554572, ; uint32_t type_token_id (0x200008c)
+		i32 33; uint32_t java_name_index (0x21)
+	}, ; 15
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554508, ; uint32_t type_token_id (0x200004c)
+		i32 13; uint32_t java_name_index (0xd)
+	}, ; 16
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554559, ; uint32_t type_token_id (0x200007f)
+		i32 24; uint32_t java_name_index (0x18)
+	}, ; 17
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554556, ; uint32_t type_token_id (0x200007c)
+		i32 22; uint32_t java_name_index (0x16)
+	}, ; 18
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 0, ; uint32_t type_token_id (0x0)
+		i32 35; uint32_t java_name_index (0x23)
+	}, ; 19
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554581, ; uint32_t type_token_id (0x2000095)
+		i32 40; uint32_t java_name_index (0x28)
+	}, ; 20
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554496, ; uint32_t type_token_id (0x2000040)
+		i32 7; uint32_t java_name_index (0x7)
+	}, ; 21
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554492, ; uint32_t type_token_id (0x200003c)
+		i32 4; uint32_t java_name_index (0x4)
+	}, ; 22
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554582, ; uint32_t type_token_id (0x2000096)
+		i32 41; uint32_t java_name_index (0x29)
+	}, ; 23
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554509, ; uint32_t type_token_id (0x200004d)
+		i32 14; uint32_t java_name_index (0xe)
+	}, ; 24
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554554, ; uint32_t type_token_id (0x200007a)
+		i32 21; uint32_t java_name_index (0x15)
+	}, ; 25
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554493, ; uint32_t type_token_id (0x200003d)
+		i32 5; uint32_t java_name_index (0x5)
+	}, ; 26
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 0, ; uint32_t type_token_id (0x0)
+		i32 11; uint32_t java_name_index (0xb)
+	}, ; 27
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554594, ; uint32_t type_token_id (0x20000a2)
 		i32 43; uint32_t java_name_index (0x2b)
+	}, ; 28
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554552, ; uint32_t type_token_id (0x2000078)
+		i32 20; uint32_t java_name_index (0x14)
+	}, ; 29
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554568, ; uint32_t type_token_id (0x2000088)
+		i32 30; uint32_t java_name_index (0x1e)
+	}, ; 30
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 0, ; uint32_t type_token_id (0x0)
+		i32 1; uint32_t java_name_index (0x1)
+	}, ; 31
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554494, ; uint32_t type_token_id (0x200003e)
+		i32 6; uint32_t java_name_index (0x6)
+	}, ; 32
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554557, ; uint32_t type_token_id (0x200007d)
+		i32 23; uint32_t java_name_index (0x17)
+	}, ; 33
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554577, ; uint32_t type_token_id (0x2000091)
+		i32 37; uint32_t java_name_index (0x25)
+	}, ; 34
+	%struct.TypeMapJava {
+		i32 1, ; uint32_t module_index (0x1)
+		i32 33554545, ; uint32_t type_token_id (0x2000071)
+		i32 18; uint32_t java_name_index (0x12)
+	}, ; 35
+	%struct.TypeMapJava {
+		i32 0, ; uint32_t module_index (0x0)
+		i32 33554444, ; uint32_t type_token_id (0x200000c)
+		i32 0; uint32_t java_name_index (0x0)
 	}, ; 36
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554583, ; uint32_t type_token_id (0x2000097)
-		i32 41; uint32_t java_name_index (0x29)
+		i32 42; uint32_t java_name_index (0x2a)
 	}, ; 37
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554578, ; uint32_t type_token_id (0x2000092)
-		i32 37; uint32_t java_name_index (0x25)
+		i32 38; uint32_t java_name_index (0x26)
 	}, ; 38
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554569, ; uint32_t type_token_id (0x2000089)
-		i32 30; uint32_t java_name_index (0x1e)
+		i32 31; uint32_t java_name_index (0x1f)
 	}, ; 39
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554501, ; uint32_t type_token_id (0x2000045)
-		i32 8; uint32_t java_name_index (0x8)
+		i32 9; uint32_t java_name_index (0x9)
 	}, ; 40
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554497, ; uint32_t type_token_id (0x2000041)
-		i32 7; uint32_t java_name_index (0x7)
+		i32 8; uint32_t java_name_index (0x8)
 	}, ; 41
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554532, ; uint32_t type_token_id (0x2000064)
-		i32 15; uint32_t java_name_index (0xf)
+		i32 16; uint32_t java_name_index (0x10)
 	}, ; 42
 	%struct.TypeMapJava {
-		i32 0, ; uint32_t module_index (0x0)
+		i32 1, ; uint32_t module_index (0x1)
 		i32 33554565, ; uint32_t type_token_id (0x2000085)
-		i32 27; uint32_t java_name_index (0x1b)
+		i32 28; uint32_t java_name_index (0x1c)
 	} ; 43
 ], align 4
 
@@ -610,54 +610,54 @@ target triple = "aarch64-unknown-linux-android21"
 ], align 8
 
 ; Strings
-@.str.0 = private unnamed_addr constant [26 x i8] c"android/util/AttributeSet\00", align 1
-@.str.1 = private unnamed_addr constant [22 x i8] c"android/os/BaseBundle\00", align 1
-@.str.2 = private unnamed_addr constant [18 x i8] c"android/os/Bundle\00", align 1
-@.str.3 = private unnamed_addr constant [19 x i8] c"android/os/Handler\00", align 1
-@.str.4 = private unnamed_addr constant [18 x i8] c"android/os/Looper\00", align 1
-@.str.5 = private unnamed_addr constant [19 x i8] c"android/os/Process\00", align 1
-@.str.6 = private unnamed_addr constant [21 x i8] c"android/app/Activity\00", align 1
-@.str.7 = private unnamed_addr constant [24 x i8] c"android/app/Application\00", align 1
-@.str.8 = private unnamed_addr constant [33 x i8] c"android/view/ContextThemeWrapper\00", align 1
-@.str.9 = private unnamed_addr constant [36 x i8] c"android/view/SurfaceHolder$Callback\00", align 1
-@.str.10 = private unnamed_addr constant [37 x i8] c"android/view/SurfaceHolder$Callback2\00", align 1
-@.str.11 = private unnamed_addr constant [27 x i8] c"android/view/SurfaceHolder\00", align 1
-@.str.12 = private unnamed_addr constant [21 x i8] c"android/view/Surface\00", align 1
-@.str.13 = private unnamed_addr constant [18 x i8] c"android/view/View\00", align 1
-@.str.14 = private unnamed_addr constant [20 x i8] c"android/view/Window\00", align 1
-@.str.15 = private unnamed_addr constant [40 x i8] c"mono/android/runtime/InputStreamAdapter\00", align 1
-@.str.16 = private unnamed_addr constant [35 x i8] c"android/runtime/JavaProxyThrowable\00", align 1
-@.str.17 = private unnamed_addr constant [41 x i8] c"mono/android/runtime/OutputStreamAdapter\00", align 1
-@.str.18 = private unnamed_addr constant [24 x i8] c"android/graphics/Canvas\00", align 1
-@.str.19 = private unnamed_addr constant [22 x i8] c"android/graphics/Rect\00", align 1
-@.str.20 = private unnamed_addr constant [24 x i8] c"android/content/Context\00", align 1
-@.str.21 = private unnamed_addr constant [31 x i8] c"android/content/ContextWrapper\00", align 1
-@.str.22 = private unnamed_addr constant [30 x i8] c"java/nio/channels/FileChannel\00", align 1
-@.str.23 = private unnamed_addr constant [51 x i8] c"java/nio/channels/spi/AbstractInterruptibleChannel\00", align 1
-@.str.24 = private unnamed_addr constant [24 x i8] c"java/io/FileInputStream\00", align 1
-@.str.25 = private unnamed_addr constant [20 x i8] c"java/io/InputStream\00", align 1
-@.str.26 = private unnamed_addr constant [20 x i8] c"java/io/IOException\00", align 1
-@.str.27 = private unnamed_addr constant [21 x i8] c"java/io/OutputStream\00", align 1
-@.str.28 = private unnamed_addr constant [20 x i8] c"java/io/PrintWriter\00", align 1
-@.str.29 = private unnamed_addr constant [21 x i8] c"java/io/StringWriter\00", align 1
-@.str.30 = private unnamed_addr constant [15 x i8] c"java/io/Writer\00", align 1
-@.str.31 = private unnamed_addr constant [16 x i8] c"java/lang/Class\00", align 1
-@.str.32 = private unnamed_addr constant [16 x i8] c"java/lang/Error\00", align 1
-@.str.33 = private unnamed_addr constant [20 x i8] c"java/lang/Exception\00", align 1
-@.str.34 = private unnamed_addr constant [19 x i8] c"java/lang/Runnable\00", align 1
-@.str.35 = private unnamed_addr constant [17 x i8] c"java/lang/System\00", align 1
-@.str.36 = private unnamed_addr constant [17 x i8] c"java/lang/Object\00", align 1
-@.str.37 = private unnamed_addr constant [28 x i8] c"java/lang/StackTraceElement\00", align 1
-@.str.38 = private unnamed_addr constant [17 x i8] c"java/lang/String\00", align 1
-@.str.39 = private unnamed_addr constant [17 x i8] c"java/lang/Thread\00", align 1
-@.str.40 = private unnamed_addr constant [35 x i8] c"mono/java/lang/RunnableImplementor\00", align 1
-@.str.41 = private unnamed_addr constant [20 x i8] c"java/lang/Throwable\00", align 1
-@.str.42 = private unnamed_addr constant [25 x i8] c"mono/android/TypeManager\00", align 1
-@.str.43 = private unnamed_addr constant [35 x i8] c"crc649bbba407d2477f6e/MainActivity\00", align 1
+@.str.0 = private unnamed_addr constant [35 x i8] c"crc649bbba407d2477f6e/MainActivity\00", align 1
+@.str.1 = private unnamed_addr constant [26 x i8] c"android/util/AttributeSet\00", align 1
+@.str.2 = private unnamed_addr constant [22 x i8] c"android/os/BaseBundle\00", align 1
+@.str.3 = private unnamed_addr constant [18 x i8] c"android/os/Bundle\00", align 1
+@.str.4 = private unnamed_addr constant [19 x i8] c"android/os/Handler\00", align 1
+@.str.5 = private unnamed_addr constant [18 x i8] c"android/os/Looper\00", align 1
+@.str.6 = private unnamed_addr constant [19 x i8] c"android/os/Process\00", align 1
+@.str.7 = private unnamed_addr constant [21 x i8] c"android/app/Activity\00", align 1
+@.str.8 = private unnamed_addr constant [24 x i8] c"android/app/Application\00", align 1
+@.str.9 = private unnamed_addr constant [33 x i8] c"android/view/ContextThemeWrapper\00", align 1
+@.str.10 = private unnamed_addr constant [36 x i8] c"android/view/SurfaceHolder$Callback\00", align 1
+@.str.11 = private unnamed_addr constant [37 x i8] c"android/view/SurfaceHolder$Callback2\00", align 1
+@.str.12 = private unnamed_addr constant [27 x i8] c"android/view/SurfaceHolder\00", align 1
+@.str.13 = private unnamed_addr constant [21 x i8] c"android/view/Surface\00", align 1
+@.str.14 = private unnamed_addr constant [18 x i8] c"android/view/View\00", align 1
+@.str.15 = private unnamed_addr constant [20 x i8] c"android/view/Window\00", align 1
+@.str.16 = private unnamed_addr constant [40 x i8] c"mono/android/runtime/InputStreamAdapter\00", align 1
+@.str.17 = private unnamed_addr constant [35 x i8] c"android/runtime/JavaProxyThrowable\00", align 1
+@.str.18 = private unnamed_addr constant [41 x i8] c"mono/android/runtime/OutputStreamAdapter\00", align 1
+@.str.19 = private unnamed_addr constant [24 x i8] c"android/graphics/Canvas\00", align 1
+@.str.20 = private unnamed_addr constant [22 x i8] c"android/graphics/Rect\00", align 1
+@.str.21 = private unnamed_addr constant [24 x i8] c"android/content/Context\00", align 1
+@.str.22 = private unnamed_addr constant [31 x i8] c"android/content/ContextWrapper\00", align 1
+@.str.23 = private unnamed_addr constant [30 x i8] c"java/nio/channels/FileChannel\00", align 1
+@.str.24 = private unnamed_addr constant [51 x i8] c"java/nio/channels/spi/AbstractInterruptibleChannel\00", align 1
+@.str.25 = private unnamed_addr constant [24 x i8] c"java/io/FileInputStream\00", align 1
+@.str.26 = private unnamed_addr constant [20 x i8] c"java/io/InputStream\00", align 1
+@.str.27 = private unnamed_addr constant [20 x i8] c"java/io/IOException\00", align 1
+@.str.28 = private unnamed_addr constant [21 x i8] c"java/io/OutputStream\00", align 1
+@.str.29 = private unnamed_addr constant [20 x i8] c"java/io/PrintWriter\00", align 1
+@.str.30 = private unnamed_addr constant [21 x i8] c"java/io/StringWriter\00", align 1
+@.str.31 = private unnamed_addr constant [15 x i8] c"java/io/Writer\00", align 1
+@.str.32 = private unnamed_addr constant [16 x i8] c"java/lang/Class\00", align 1
+@.str.33 = private unnamed_addr constant [16 x i8] c"java/lang/Error\00", align 1
+@.str.34 = private unnamed_addr constant [20 x i8] c"java/lang/Exception\00", align 1
+@.str.35 = private unnamed_addr constant [19 x i8] c"java/lang/Runnable\00", align 1
+@.str.36 = private unnamed_addr constant [17 x i8] c"java/lang/System\00", align 1
+@.str.37 = private unnamed_addr constant [17 x i8] c"java/lang/Object\00", align 1
+@.str.38 = private unnamed_addr constant [28 x i8] c"java/lang/StackTraceElement\00", align 1
+@.str.39 = private unnamed_addr constant [17 x i8] c"java/lang/String\00", align 1
+@.str.40 = private unnamed_addr constant [17 x i8] c"java/lang/Thread\00", align 1
+@.str.41 = private unnamed_addr constant [35 x i8] c"mono/java/lang/RunnableImplementor\00", align 1
+@.str.42 = private unnamed_addr constant [20 x i8] c"java/lang/Throwable\00", align 1
+@.str.43 = private unnamed_addr constant [25 x i8] c"mono/android/TypeManager\00", align 1
 
 ;TypeMapModule
-@.TypeMapModule.0_assembly_name = private unnamed_addr constant [13 x i8] c"Mono.Android\00", align 1
-@.TypeMapModule.1_assembly_name = private unnamed_addr constant [23 x i8] c"RAZR_PointCRep.Android\00", align 1
+@.TypeMapModule.0_assembly_name = private unnamed_addr constant [23 x i8] c"RAZR_PointCRep.Android\00", align 1
+@.TypeMapModule.1_assembly_name = private unnamed_addr constant [13 x i8] c"Mono.Android\00", align 1
 
 ; Metadata
 !llvm.module.flags = !{!0, !1, !7, !8, !9, !10}

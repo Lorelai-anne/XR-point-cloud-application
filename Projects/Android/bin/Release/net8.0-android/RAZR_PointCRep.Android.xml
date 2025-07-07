@@ -16,6 +16,16 @@
         <member name="M:ShowAssets.Initialize">
             :End:
         </member>
+        <member name="M:ShowPicker.OnLoadModel(System.String)">
+            :CodeSample: Platform.FilePicker Platform.FilePickerVisible
+            Once you have the filename, it's simply a matter of loading it
+            from file. This is an example of async loading a model, and 
+            calculating a scale value that ensures the model is a reasonable
+            size.
+        </member>
+        <member name="M:ShowPicker.ShowNodes(StereoKit.Model,StereoKit.Material)">
+            :End:
+        </member>
         <member name="F:Program.lastFocus">
             :CodeSample: AppFocus SK.AppFocus
             ### Checking for changes in application focus
