@@ -259,23 +259,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lorelai.davis\\.nuget\\packages\\": {},
+    "C:\\Users\\Lorel\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
+      "projectUniqueName": "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
       "projectName": "RAZR_PointCRep.Android",
-      "projectPath": "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
-      "packagesPath": "C:\\Users\\lorelai.davis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\obj\\",
+      "projectPath": "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
+      "packagesPath": "C:\\Users\\Lorel\\.nuget\\packages\\",
+      "outputPath": "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\lorelai.davis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lorel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

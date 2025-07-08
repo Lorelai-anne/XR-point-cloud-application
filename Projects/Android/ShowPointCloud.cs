@@ -89,7 +89,6 @@ namespace RAZR_PointCRep
 {
     internal class ShowPointCloud : IClass
     {
-        Model model = Model.FromFile("cube.obj");
         Model model2 = Model.FromFile("DamagedHelmet.gltf");
         Model model3 = Model.FromFile("Cosmonaut.glb");
         Model model6 = Model.FromFile("suzanne_bin.stl");
@@ -102,8 +101,9 @@ namespace RAZR_PointCRep
 
         public void Initialize() // currently drawing points for sphere, if file picker not working, change this
         {
-            cloud = new PointCloud(pointSize, model);
-            cloudScale = 0.5f / model.Bounds.dimensions.Length;
+            cloud = new PointCloud(pointSize, model2);
+            cloudScale = 0.5f / model2.Bounds.dimensions.Length;
+            UpdateFilter(typeof(Model));
         }
 
         public void Shutdown()
