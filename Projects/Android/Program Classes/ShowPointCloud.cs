@@ -1,10 +1,10 @@
-﻿using Java.Util;
+﻿using Android.Accounts;
 using RAZR_PointCRep.Tools;
 using StereoKit;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using static Android.Provider.CalendarContract;
 
 public class PointCloud
 {
@@ -91,43 +91,51 @@ namespace RAZR_PointCRep.Show
     internal class ShowPointCloud : IClass
     {
         Model model2 = Model.FromFile("DamagedHelmet.gltf");
-        Model model = Model.FromFile("Wand.glb");
-        Model model1 = Model.FromFile("Vineyard_2024-03-13-trimmed.pcd");
         Model model3 = Model.FromFile("Cosmonaut.glb");
         Model model6 = Model.FromFile("suzanne_bin.stl");
 
         Pose cloudPose = (Matrix.T(0.2f, -0.1f, 0) * Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
-        float cloudScale = 1;
+        float cloudScale;
         PointCloud cloud;
-
         float pointSize = 0.01f;
 
-        public void Initialize() // currently drawing points for sphere, if file picker not working, change this
+        public void Initialize()
         {
-            UpdateFilter(typeof(Model));
+            string[] lines = Platform.ReadFileText("Cat.pcd").Split("\n"); // Raeds file and splits into array at every new line
+            Vertex[] pointss = new Vertex[lines.Length * 4]; //Creating Vertex Array with the size of lines[], So you can reuse the CreatePointcloud(Vertex[]) instead of creating new one
+            bool readingPoints = false;
+            int i = 0;
 
-            const int xCount = 24;
-            const int yCount = 16;
-            Vertex[] points = new Vertex[xCount * yCount];
-            for (int y = 0; y < yCount; y++)
+            foreach (string line in lines)
             {
-                for (int x = 0; x < xCount; x++)
+                //Log.Info($"{line}");
+                if (readingPoints)
                 {
-                    float u = x / (float)xCount;
-                    float v = y / (float)yCount;
-                    int i = x + y * xCount;
+                    string[] splitLine = line.Split(' ');
+                    if (splitLine.Length >= 3)
+                    {
+                        float x = float.Parse(splitLine[0]);
+                        float y = float.Parse(splitLine[1]);
+                        float z = float.Parse(splitLine[2]);
 
-                    float theta = u * (float)Math.PI * 2.0f;
-                    float phi = (v - 0.5f) * (float)Math.PI;
-                    float c = SKMath.Cos(phi);
-
-                    points[i].pos = V.XYZ(c * SKMath.Cos(theta), SKMath.Sin(phi), c * SKMath.Sin(theta)) * 0.2f;
-                    points[i].col = Color.HSV(u, v, 1).ToLinear();
+                        pointss[i].pos = V.XYZ(x, y, z);
+                        pointss[i].col = Color.HSV(x, y, 1).ToLinear();
+                        i++;
+                    }
+                }
+                else
+                {
+                    Log.Info($"{line}"); // Printing out header data in debug log
+                }
+                if (line.Contains("DATA ascii")) // Checks if lines contain point cloud data not headers
+                {
+                    readingPoints = true;
                 }
             }
 
-            // Make a point cloud out of the points!
-            cloud = new PointCloud(pointSize, points);
+            // INITIALIZE MUST CONTAIN new PointCloud() OR IT WILLL CRASH & THROW NULL POINTER EXCEPTION
+
+            cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
             cloudScale = 1;
         }
 

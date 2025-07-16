@@ -22,4 +22,10 @@
 	<ItemGroup>
 	  <PackageReference Include="StereoKit" Version="0.3.10" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="pc.pcd">
+	    <Visible>false</Visible>
+	  </None>
+	</ItemGroup>
 </Project>
