@@ -3,9 +3,12 @@
 // Copyright (c) 2019-2025 Nick Klingensmith
 // Copyright (c) 2023-2025 Qualcomm Technologies, Inc.
 
+using RAZR_PointCRep.Spatial_Anchor;
+using RAZR_PointCRep.Tools;
 using StereoKit;
 using StereoKit.Framework;
 using System;
+using static Android.Icu.Util.LocaleData;
 
 class Program
 {
@@ -31,6 +34,10 @@ class Program
 
     public static bool WindowDemoShow = false;
 
+
+    static Pose window2Pose = Matrix.TR(0.2f, -0.1f, -0.5f, Quat.LookDir(-Vec3.Forward)).Pose;
+    static Pose window1Pose = new Pose(window2Pose.position + Vec3.Up * 0.2f, window2Pose.orientation);
+
     static void Main(string[] args)
     {
         // CLI arguments
@@ -51,7 +58,8 @@ class Program
 
         // OpenXR extensions need added before SK.Initialize, so does
         // LogWindow for early log registration!
-        SK.AddStepper<PassthroughFBExt>();
+        PassthroughFBExt stepper = SK.AddStepper(new PassthroughFBExt());
+        SpatialEntityFBExt spatialEntityStepper = SK.AddStepper(new SpatialEntityFBExt());
         //SK.AddStepper<Win32PerformanceCounterExt>();
 
         // Initialize StereoKit
@@ -60,7 +68,90 @@ class Program
 
         Init();
 
-        SK.Run(Step, MenuSort.Shutdown);
+        //SK.Run(Step, MenuSort.Shutdown);
+        SK.Run(() =>
+        {
+            Step();
+
+            float panelSize = 0.5f;
+            bool step = !stepper.Enabled; // For passthrough toggle, checks if passthrough is enabled
+            Guid? selectedAnchorId = null;
+            UI.WindowBegin("Spatial Anchor Menu", ref window2Pose, new Vec2(30, 0) * U.cm);
+            if (spatialEntityStepper.Available)
+            {
+                UI.Label("FB Spatial Entity EXT available!");
+                if (UI.Button("Create Anchor"))
+                {
+                    // We will create the anchor at the location just in front of the window (and we'll adopt the UI window's orientation).
+                    Vec3 anchorPosition = window2Pose.position + window2Pose.Forward * .05f + Vec3.Up * 0.1f;
+                    Pose pose = new Pose(anchorPosition, window2Pose.orientation);
+
+                    // We can optionally provide some callbacks for when the async operation either completes successfully or fails.
+                    spatialEntityStepper.CreateAnchor(
+                        pose,
+                        (Guid newAnchorUuid) => Log.Info($"Async anchor creation success. New anchor created: Uuid:{newAnchorUuid}"),
+                        () => Log.Info("Async anchor creation success failed :("));
+                }
+
+                UI.SameLine();
+
+                if (UI.Button("Load All"))
+                    spatialEntityStepper.LoadAllAnchors();
+
+                UI.SameLine();
+
+                if (UI.Button("Erase All"))
+                    spatialEntityStepper.DeleteAllAnchors();
+
+                // List all Anchors
+                UI.HSeparator();
+                UI.Label($"Anchors Loaded ({spatialEntityStepper.AnchorCount})");
+
+                foreach (var anchor in spatialEntityStepper.Anchors)
+                {
+                    // Use a PushId to avoid button Id collisions
+                    UI.PushId(anchor.Uuid.ToString());
+                    UI.PanelBegin();
+
+                    if (UI.Button($"{anchor.Uuid.ToString().Substring(0, 14)}..."))
+                    {
+                        // Unselect the anchor (if already selected) or select the anchor (if not already selected)
+                        if (selectedAnchorId == anchor.Uuid)
+                            selectedAnchorId = null;
+                        else
+                            selectedAnchorId = anchor.Uuid;
+                    }
+                    UI.SameLine();
+                    // Button to delete the selected anchor
+                    if (UI.Button("Delete"))
+                    {
+                        spatialEntityStepper.DeleteAnchor(anchor.Uuid);
+                    }
+
+                    if (selectedAnchorId == anchor.Uuid)
+                    {
+                        UI.Label("XrSpace: " + anchor.XrSpace);
+                        UI.Label("Located: " + anchor.LocateSuccess);
+                        UI.Label(anchor.Pose.ToString());
+                    }
+
+                    UI.PanelEnd();
+                    UI.PopId();
+                }
+            }
+            else
+            {
+                UI.Label("Spatial Anchor is not available :(");
+            }
+            UI.WindowEnd();
+
+            // Visualize all loaded spatial anchor
+            foreach (var anchor in spatialEntityStepper.Anchors)
+            {
+                // Just draw a nice orange cube for the anchor pose
+                Mesh.Cube.Draw(Material.Default, anchor.Pose.ToMatrix(0.1f), new Color(1, 0.5f, 0));
+            }
+        });
     }
 
     static void Init()

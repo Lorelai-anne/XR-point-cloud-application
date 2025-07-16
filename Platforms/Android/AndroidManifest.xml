@@ -64,4 +64,5 @@
 	<uses-feature    android:name="com.oculus.software.body_tracking" android:required="false"/>
 	<uses-feature    android:name="oculus.software.face_tracking"     android:required="false"/>
 	<uses-feature    android:name="oculus.software.eye_tracking"      android:required="false"/>
+	<uses-feature    android:name="com.oculus.experimental.enabled"   android:required="false"/>
 </manifest>

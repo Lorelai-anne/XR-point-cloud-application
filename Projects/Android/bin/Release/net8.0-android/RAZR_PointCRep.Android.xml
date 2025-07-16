@@ -4,6 +4,197 @@
         <name>RAZR_PointCRep.Android</name>
     </assembly>
     <members>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrCreateSpatialAnchorFB">
+            <summary>
+            Creates a Spatial Anchor using the specified tracking origin and pose relative to the specified tracking origin.
+            </summary>
+            <param name="session"></param>
+            <param name="info"></param>
+            <param name="requestId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrGetSpaceUuidFB">
+            <summary>
+            Gets the UUID for a spatial entity.
+            </summary>
+            <param name="space">The XrSpace handle of a spatial entity.</param>
+            <param name="uuid">An output parameter pointing to the entity’s UUID.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrEnumerateSpaceSupportedComponentsFB">
+            <summary>
+            Lists any component types that an entity supports.
+            </summary>
+            <param name="space">the XrSpace handle to the spatial entity.</param>
+            <param name="componentTypeCapacityInput">the capacity of the componentTypes array, or 0 to indicate a request to retrieve the required capacity.</param>
+            <param name="componentTypeCountOutput">a pointer to the count of componentTypes written, or a pointer to the required capacity in the case that componentTypeCapacityInput is insufficient.</param>
+            <param name="componentTypes">a pointer to an array of XrSpaceComponentTypeFB values, but can be NULL if componentTypeCapacityInput is 0.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrSetSpaceComponentStatusFB">
+            <summary>
+            Enables or disables the specified component for the specified entity.
+            </summary>
+            <param name="space">the XrSpace handle to the spatial entity.</param>
+            <param name="info">a pointer to an XrSpaceComponentStatusSetInfoFB structure containing information about the component to be enabled or disabled.</param>
+            <param name="requestId">the output parameter that points to the ID of this asynchronous request.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrGetSpaceComponentStatusFB">
+            <summary>
+            Gets the current status of the specified component for the specified entity.
+            </summary>
+            <param name="space">the XrSpace handle of a spatial entity.</param>
+            <param name="componentType">the component type to query.</param>
+            <param name="status">an output parameter pointing to the structure containing the status of the component that was queried.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrSaveSpaceFB">
+            <summary>
+            Persists the spatial entity at the specified location with the specified mode. 
+            </summary>
+            <param name="session">a handle to an XrSession.</param>
+            <param name="info">contains the parameters for the save operation.</param>
+            <param name="requestId">an output parameter, and the variable it points to will be populated with the ID of this asynchronous request.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrEraseSpaceFB">
+            <summary>
+            Erases a spatial entity from storage at the specified location. 
+            </summary>
+            <param name="session">a handle to an XrSession.</param>
+            <param name="info">contains the parameters for the erase operation.</param>
+            <param name="requestId">an output parameter, and the variable it points to will be populated with the ID of this asynchronous request.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrQuerySpacesFB">
+            <summary>
+            A function for the application to find and retrieve spatial entities from storage.
+            </summary>
+            <param name="session"></param>
+            <param name="info"></param>
+            <param name="requestId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrRetrieveSpaceQueryResultsFB">
+            <summary>
+            A function afor the application to retrieve all available results for a specified query. 
+            </summary>
+            <param name="session"></param>
+            <param name="requestId"></param>
+            <param name="results"></param>
+            <returns></returns>
+        </member>
+        <member name="F:RAZR_PointCRep.Spatial_Anchor.XrSystemSpatialEntityPropertiesFB.supportsSpatialEntity">
+            <summary>
+            A boolean value that determines if spatial entities are supported by the system.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpatialAnchorCreateInfoFB">
+            <summary>
+            Parameters to create a new spatial anchor
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceComponentStatusSetInfoFB">
+            <summary>
+            Enables or disables the specified component for the specified spatial entity
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceComponentStatusFB">
+            <summary>
+            Holds information on the current state of a component.
+            </summary>
+        </member>
+        <member name="F:RAZR_PointCRep.Spatial_Anchor.XrSpaceComponentStatusFB.enabled">
+            <summary>
+            a boolean value that determines if a component is currently enabled or disabled.
+            </summary>
+        </member>
+        <member name="F:RAZR_PointCRep.Spatial_Anchor.XrSpaceComponentStatusFB.changePending">
+            <summary>
+            a boolean value that determines if the component’s enabled state is about to change.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrEventDataSpatialAnchorCreateCompleteFB">
+            <summary>
+            It describes the result of a request to create a new spatial anchor. Once this event is posted,
+            it is the application's responsibility to take ownership of the XrSpace. The XrSession passed 
+            into xrCreateSpatialAnchorFB is the parent handle of the newly created XrSpace.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrEventDataSpaceSetStatusCompleteFB">
+            <summary>
+            Describes the result of a request to enable or disable a component of a spatial entity.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceSaveInfoFB">
+            <summary>
+            Contains information used to save the spatial entity.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceEraseInfoFB">
+            <summary>
+            Contains information used to erase the spatial entity.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrEventDataSpaceSaveCompleteFB">
+            <summary>
+            The save result event contains the success of the save/write operation to the specified location, 
+            as well as the XrSpace handle on which the save operation was attempted on, the unique UUID, and 
+            the triggered async request ID from the initial calling function.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrEventDataSpaceEraseCompleteFB">
+            <summary>
+            The erase result event contains the success of the erase operation from the specified storage 
+            location. It also provides the UUID of the entity and the async request ID from the initial 
+            calling function.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceFilterInfoBaseHeaderFB">
+            <summary>
+            A base structure that is not intended to be directly used, but forms a basis for specific filter 
+            info types.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceQueryInfoFB">
+            <summary>
+            Used to query for spaces and perform a specific action on the spaces returned.
+            </summary>
+        </member>
+        <member name="M:RAZR_PointCRep.Spatial_Anchor.XrSpaceQueryInfoFB.#ctor(System.UInt32)">
+            <param name="maxResCount">Maximum number of anchors to retrieve</param>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceStorageLocationFilterInfoFB">
+            <summary>
+            Extends a query filter to limit a query to a specific storage location.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceQueryResultFB">
+            <summary>
+            A query result returned in the results output parameter of the xrRetrieveSpaceQueryResultsFB function.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrSpaceQueryResultsFB">
+            <summary>
+            Used by the xrRetrieveSpaceQueryResultsFB function to retrieve query results.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrEventDataSpaceQueryResultsAvailableFB">
+            <summary>
+            It indicates a query request has produced some number of results. If a query yields 
+            results this event MUST be delivered before the XrEventDataSpaceQueryCompleteFB event 
+            is delivered. Call xrQuerySpacesFB to retrieve those results.
+            </summary>
+        </member>
+        <member name="T:RAZR_PointCRep.Spatial_Anchor.XrEventDataSpaceQueryCompleteFB">
+            <summary>
+            It indicates a query request has completed and specifies the request result. This event 
+            must be delivered when a query has completed, regardless of the number of results found. 
+            If any results have been found, then this event must be delivered after any 
+            XrEventDataSpaceQueryResultsAvailableFB events have been delivered.
+            </summary>
+        </member>
         <member name="F:Program.lastFocus">
             :CodeSample: AppFocus SK.AppFocus
             ### Checking for changes in application focus
