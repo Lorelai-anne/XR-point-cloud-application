@@ -97,11 +97,11 @@ namespace RAZR_PointCRep.Show
         Pose cloudPose = (Matrix.T(0.2f, -0.1f, 0) * Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
         float cloudScale;
         PointCloud cloud;
-        float pointSize = 0.01f;
+        float pointSize = 0.003f;
 
-        public void ASCIIParse()
+        public void ASCIIParse(string fileName)
         {
-            string[] lines = Platform.ReadFileText("Cat.pcd").Split("\n"); // Raeds file and splits into array at every new line
+            string[] lines = Platform.ReadFileText(fileName).Split("\n"); // Reads file and splits into array at every new line
             Vertex[] pointss = new Vertex[lines.Length * 4]; //Creating Vertex Array with the size of lines[], So you can reuse the CreatePointcloud(Vertex[]) instead of creating new one
             bool readingPoints = false;
             int i = 0;
@@ -137,9 +137,12 @@ namespace RAZR_PointCRep.Show
             cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
             cloudScale = 1;
         }
-        public void BinaryParse() //works technically but memory issues, optimize
+        float parseProgress = 0;
+        bool isParsing = false;
+
+        public void BinaryParse(string fileName) //works technically but needs optimization
         {
-            byte[] fileData = Platform.ReadFileBytes("Vineyard_2024-03-13-trimmed.pcd");
+            byte[] fileData = Platform.ReadFileBytes(fileName);
 
             int headerEnd = 0;
             string headerText = "";
@@ -176,19 +179,17 @@ namespace RAZR_PointCRep.Show
                 byte b = (byte)(rgb & 0xFF);
 
                 points[i].pos = V.XYZ(x, z, -y);
-                points[i].col = Color.HSV(r, g, b, 255).ToLinear();
+                points[i].col = Color.HSV(r, g, b).ToLinear();
             }
 
             cloud = new PointCloud(pointSize, points);
             cloudScale = 1;
         }
-
         public void Initialize()
         {
-            //ASCIIParse(); //Reads ASCII pcd files
-            BinaryParse(); //Reads binary pcd files
+            ASCIIParse("Cat.pcd"); //Reads ASCII pcd files
+            //BinaryParse("Vineyard_2024-03-13-trimmed.pcd"); //Reads binary pcd files
         }
-
         public void Shutdown()
         {
         }
@@ -267,6 +268,7 @@ namespace RAZR_PointCRep.Show
         // Think of this almost as the 'main' method of the class
         bool winEn = false;
         Pose simpleWinPose = Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1)).Pose;
+        Pose simpleWinPose2 = Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1)).Pose;
         public void Step()
         {
             bool secWin = winEn;
@@ -311,9 +313,17 @@ namespace RAZR_PointCRep.Show
 
                 UI.Label("Size:", V.XY(.04f, 0)); //Adjust size of points
                 UI.SameLine();
-                if (UI.HSlider("Point Size", ref pointSize, 0.001f, 0.1f, 0))
+                if (UI.HSlider("Point Size", ref pointSize, 0.001f, 0.005f, 0))
                     cloud.PointSize = pointSize;
                 UI.PanelEnd();
+                if (UI.Button("ASCII"))
+                {
+                    ASCIIParse("Cat.pcd"); //Reads ASCII pcd files
+                }
+                if (UI.Button("binary"))
+                {
+                    BinaryParse("Vineyard_2024-03-13-trimmed.pcd"); //Reads binary pcd files
+                }
             }
             UI.WindowEnd();
 
