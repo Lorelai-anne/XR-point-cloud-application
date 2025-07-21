@@ -99,7 +99,7 @@ namespace RAZR_PointCRep.Show
         PointCloud cloud;
         float pointSize = 0.01f;
 
-        public void Initialize()
+        public void ASCIIParse()
         {
             string[] lines = Platform.ReadFileText("Cat.pcd").Split("\n"); // Raeds file and splits into array at every new line
             Vertex[] pointss = new Vertex[lines.Length * 4]; //Creating Vertex Array with the size of lines[], So you can reuse the CreatePointcloud(Vertex[]) instead of creating new one
@@ -137,6 +137,59 @@ namespace RAZR_PointCRep.Show
 
             cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
             cloudScale = 1;
+        }
+
+        public void BinaryParse()
+        {
+            byte[] fileData = Platform.ReadFileBytes("Vineyard_2024-03-13-trimmed.pcd");
+
+            int headerEnd = 0;
+            string headerText = "";
+            for (int i = 0; i < fileData.Length - 4; i++)
+            {
+                if (fileData[i] == 'D' && fileData[i + 1] == 'A' && fileData[i + 2] == 'T' && fileData[i + 3] == 'A')
+                {
+                    while (i < fileData.Length && fileData[i] != '\n') i++;
+                    headerEnd = i + 1;
+                    break;
+                }
+            }
+
+            headerText = System.Text.Encoding.ASCII.GetString(fileData, 0, headerEnd);
+            Log.Info(headerText);
+
+            int pointStride = sizeof(float) * 7; // x y z normal_x normal_y normal_z rgb
+            int numPoints = (fileData.Length - headerEnd) / pointStride;
+
+            Vertex[] points = new Vertex[numPoints];
+
+            for (int i = 0; i < numPoints; i++)
+            {
+                int offset = headerEnd + i * pointStride;
+
+                float x = BitConverter.ToSingle(fileData, offset + 0);
+                float y = BitConverter.ToSingle(fileData, offset + 4);
+                float z = BitConverter.ToSingle(fileData, offset + 8);
+
+                // RGB is stored in the final float (usually as packed uint32)
+                float rgbFloat = BitConverter.ToSingle(fileData, offset + 24);
+                uint rgb = BitConverter.ToUInt32(BitConverter.GetBytes(rgbFloat), 0);
+                byte r = (byte)((rgb >> 16) & 0xFF);
+                byte g = (byte)((rgb >> 8) & 0xFF);
+                byte b = (byte)(rgb & 0xFF);
+
+                points[i].pos = V.XYZ(x, y, z);
+                points[i].col = Color.HSV(r, g, b, 255).ToLinear();
+            }
+
+            cloud = new PointCloud(pointSize, points);
+            cloudScale = 1;
+        }
+
+        public void Initialize()
+        {
+            //ASCIIParse();
+            BinaryParse();
         }
 
         public void Shutdown()
