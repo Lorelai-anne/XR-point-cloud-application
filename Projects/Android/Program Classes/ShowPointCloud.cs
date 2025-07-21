@@ -134,12 +134,10 @@ namespace RAZR_PointCRep.Show
             }
 
             // INITIALIZE MUST CONTAIN new PointCloud() OR IT WILLL CRASH & THROW NULL POINTER EXCEPTION
-
             cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
             cloudScale = 1;
         }
-
-        public void BinaryParse()
+        public void BinaryParse() //works technically but memory issues, optimize
         {
             byte[] fileData = Platform.ReadFileBytes("Vineyard_2024-03-13-trimmed.pcd");
 
@@ -171,14 +169,13 @@ namespace RAZR_PointCRep.Show
                 float y = BitConverter.ToSingle(fileData, offset + 4);
                 float z = BitConverter.ToSingle(fileData, offset + 8);
 
-                // RGB is stored in the final float (usually as packed uint32)
                 float rgbFloat = BitConverter.ToSingle(fileData, offset + 24);
                 uint rgb = BitConverter.ToUInt32(BitConverter.GetBytes(rgbFloat), 0);
                 byte r = (byte)((rgb >> 16) & 0xFF);
                 byte g = (byte)((rgb >> 8) & 0xFF);
                 byte b = (byte)(rgb & 0xFF);
 
-                points[i].pos = V.XYZ(x, y, z);
+                points[i].pos = V.XYZ(x, z, -y);
                 points[i].col = Color.HSV(r, g, b, 255).ToLinear();
             }
 
@@ -188,14 +185,16 @@ namespace RAZR_PointCRep.Show
 
         public void Initialize()
         {
-            //ASCIIParse();
-            BinaryParse();
+            //ASCIIParse(); //Reads ASCII pcd files
+            BinaryParse(); //Reads binary pcd files
         }
 
         public void Shutdown()
         {
         }
 
+        
+        
         List<IAsset> filteredAssets = new List<IAsset>();
         Type filterType = typeof(IAsset);
         float filterScroll = 0;
@@ -216,7 +215,6 @@ namespace RAZR_PointCRep.Show
             // type!
             filteredAssets.AddRange(Assets.Type(filterType));
         }
-
         // Shows Models availible to use for point clouds
         //originally going to use file picker, according to research it doesn't run natively on stereokit
         public void AssetWindow()
@@ -266,8 +264,6 @@ namespace RAZR_PointCRep.Show
             }
             UI.WindowEnd();
         }
-
-
         // Think of this almost as the 'main' method of the class
         bool winEn = false;
         Pose simpleWinPose = Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1)).Pose;
@@ -326,7 +322,6 @@ namespace RAZR_PointCRep.Show
                 AssetWindow(); //if bool is true, enable window. WIll automatically uninitialize window if false since it checks per frame
             }
         }
-
         static bool HandFacingHead(Handed handed)
         {
             Hand hand = Input.Hand(handed);
