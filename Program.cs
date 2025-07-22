@@ -37,7 +37,6 @@ public static class Program
 
 
     static Pose window2Pose = Matrix.TR(0.2f, -0.1f, -0.5f, Quat.LookDir(-Vec3.Forward)).Pose;
-    static Pose window1Pose = new Pose(window2Pose.position + Vec3.Up * 0.2f, window2Pose.orientation);
 
     public static SpatialEntityPoseHandler handler; //making it public static so i can access outside of file
 
@@ -165,8 +164,6 @@ public static class Program
             foreach (var anchor in spatialEntityStepper.Anchors)
             {
                 handler = new SpatialEntityPoseHandler(anchor.Pose);
-                Log.Info($"PROGRAM POSE POSITION : {anchor.Pose.position}");
-                // Just draw a nice orange cube for the anchor pose
                 handler.DrawAnchor(anchor.Pose, new Color(1, 0, 1));
             }
         });

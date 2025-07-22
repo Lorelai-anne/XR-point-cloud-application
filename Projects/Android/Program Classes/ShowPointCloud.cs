@@ -97,7 +97,7 @@ namespace RAZR_PointCRep.Show
         Model model6 = Model.FromFile("suzanne_bin.stl");
 
 
-        SpatialEntityPoseHandler handler = Program.handler;
+        SpatialEntityPoseHandler handler = Program.handler; //initializes stepper to the spatial anchor initialized in program, if there is one
 
         Pose cloudPose = (Matrix.T(0.2f, -0.1f, 0) * Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
 
@@ -194,10 +194,17 @@ namespace RAZR_PointCRep.Show
         public void Initialize()
         {
             Log.Info($"INITIAL POINTCLOUD POSE POSITION : {cloudPose.position}");
-            cloudPose = handler.PoseInfo();
-            Log.Info($"ANCHOR POINTCLOUD POSE POSITION : {cloudPose.position}");
+            if(handler != null)
+            {
+                cloudPose = handler.PoseInfo(); //if sanchor handler is not null when initializing class, initialize cloudPose
+            }
+            else
+            {
+                cloudPose = new SpatialEntityPoseHandler().PoseInfo(); //if spatial anchor doesn't exist creates new one at 0,0,0
+            }
+                Log.Info($"ANCHOR POINTCLOUD POSE POSITION : {cloudPose.position}");
 
-            ASCIIParse("Cat.pcd"); //Reads ASCII pcd files
+            ASCIIParse("ASCII.pcd"); //Reads ASCII pcd files
             //BinaryParse("Vineyard_2024-03-13-trimmed.pcd"); //Reads binary pcd files
         }
         public void Shutdown()
