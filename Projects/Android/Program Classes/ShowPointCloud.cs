@@ -1,10 +1,12 @@
 ﻿using Android.Accounts;
+using RAZR_PointCRep.Spatial_Anchor;
 using RAZR_PointCRep.Tools;
 using StereoKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using static Android.Provider.CalendarContract;
+using static RAZR_PointCRep.Spatial_Anchor.SpatialEntityFBExt;
 
 public class PointCloud
 {
@@ -94,7 +96,11 @@ namespace RAZR_PointCRep.Show
         Model model3 = Model.FromFile("Cosmonaut.glb");
         Model model6 = Model.FromFile("suzanne_bin.stl");
 
+
+        SpatialEntityPoseHandler handler = Program.handler;
+
         Pose cloudPose = (Matrix.T(0.2f, -0.1f, 0) * Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
+
         float cloudScale;
         PointCloud cloud;
         float pointSize = 0.003f;
@@ -187,6 +193,10 @@ namespace RAZR_PointCRep.Show
         }
         public void Initialize()
         {
+            Log.Info($"INITIAL POINTCLOUD POSE POSITION : {cloudPose.position}");
+            cloudPose = handler.PoseInfo();
+            Log.Info($"ANCHOR POINTCLOUD POSE POSITION : {cloudPose.position}");
+
             ASCIIParse("Cat.pcd"); //Reads ASCII pcd files
             //BinaryParse("Vineyard_2024-03-13-trimmed.pcd"); //Reads binary pcd files
         }
