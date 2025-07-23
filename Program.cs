@@ -72,15 +72,22 @@ public static class Program
         Init();
 
         int anchor = 0;
+        Pose cubePose = new Pose(0, 0, -0.5f);
+        Model cube = Model.FromMesh(
+            Mesh.GenerateCube(Vec3.One * 0.1f),
+            Material.UI);
 
         //SK.Run(Step, MenuSort.Shutdown);
         SK.Run(() =>
         {
             Step();
 
+            
+
             float panelSize = 0.5f;
             bool step = !stepper.Enabled; // For passthrough toggle, checks if passthrough is enabled
             Guid? selectedAnchorId = null;
+
             UI.WindowBegin("Spatial Anchor Menu", ref window2Pose, new Vec2(30, 0) * U.cm);
 
             UI.LayoutPushCut(UICut.Top, UI.LineHeight);
@@ -94,8 +101,8 @@ public static class Program
                 {
                     anchor++;
                     // We will create the anchor at the location just in front of the window (and we'll adopt the UI window's orientation).
-                    Vec3 anchorPosition = window2Pose.position + window2Pose.Forward * .05f + Vec3.Up * 0.1f;
-                    Pose pose = new Pose(anchorPosition, window2Pose.orientation);
+                    Vec3 anchorPosition = cubePose.position + cubePose.Forward * .05f * 0.1f;
+                    Pose pose = new Pose(anchorPosition, cubePose.orientation);
 
                     // We can optionally provide some callbacks for when the async operation either completes successfully or fails.
                     spatialEntityStepper.CreateAnchor(
@@ -166,6 +173,8 @@ public static class Program
                 handler = new SpatialEntityPoseHandler(anchor.Pose);
                 handler.DrawAnchor(anchor.Pose, new Color(1, 0, 1));
             }
+            UI.Handle("Cube", ref cubePose, cube.Bounds);
+            cube.Draw(cubePose.ToMatrix());
         });
     }
 
