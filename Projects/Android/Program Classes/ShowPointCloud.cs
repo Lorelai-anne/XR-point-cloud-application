@@ -5,6 +5,8 @@ using StereoKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using static Android.Provider.CalendarContract;
 using static RAZR_PointCRep.Spatial_Anchor.SpatialEntityFBExt;
 
@@ -143,8 +145,6 @@ namespace RAZR_PointCRep.Show
             cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
             cloudScale = 1;
         }
-        float parseProgress = 0;
-        bool isParsing = false;
 
         public void BinaryParse(string fileName) //works technically but needs optimization
         {

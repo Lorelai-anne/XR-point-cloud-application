@@ -82,8 +82,6 @@ public static class Program
         {
             Step();
 
-            
-
             float panelSize = 0.5f;
             bool step = !stepper.Enabled; // For passthrough toggle, checks if passthrough is enabled
             Guid? selectedAnchorId = null;
@@ -100,9 +98,9 @@ public static class Program
                 if (UI.Button("Create Anchor") && anchor == 0)
                 {
                     anchor++;
-                    // We will create the anchor at the location just in front of the window (and we'll adopt the UI window's orientation).
+                    // We will create the anchor at the location just in front of the window
                     Vec3 anchorPosition = cubePose.position + cubePose.Forward * .05f * 0.1f;
-                    Pose pose = new Pose(anchorPosition, cubePose.orientation);
+                    Pose pose = new Pose(anchorPosition);
 
                     // We can optionally provide some callbacks for when the async operation either completes successfully or fails.
                     spatialEntityStepper.CreateAnchor(
