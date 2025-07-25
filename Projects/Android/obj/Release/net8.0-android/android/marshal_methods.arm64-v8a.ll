@@ -13,73 +13,113 @@ target triple = "aarch64-unknown-linux-android21"
 	ptr ; MonoClass klass
 }
 
-@assembly_image_cache = dso_local local_unnamed_addr global [15 x ptr] zeroinitializer, align 8
+@assembly_image_cache = dso_local local_unnamed_addr global [25 x ptr] zeroinitializer, align 8
 
 ; Each entry maps hash of an assembly name to an index into the `assembly_image_cache` array
-@assembly_image_cache_hashes = dso_local local_unnamed_addr constant [30 x i64] [
-	i64 120698629574877762, ; 0: Mono.Android => 0x1accec39cafe242 => 14
-	i64 750875890346172408, ; 1: System.Threading.Thread => 0xa6ba5a4da7d1ff8 => 9
-	i64 1513467482682125403, ; 2: Mono.Android.Runtime => 0x1500eaa8245f6c5b => 13
-	i64 1537168428375924959, ; 3: System.Threading.Thread.dll => 0x15551e8a954ae0df => 9
-	i64 2497223385847772520, ; 4: System.Runtime => 0x22a7eb7046413568 => 8
-	i64 3311221304742556517, ; 5: System.Numerics.Vectors.dll => 0x2df3d23ba9e2b365 => 6
-	i64 3551103847008531295, ; 6: System.Private.CoreLib.dll => 0x31480e226177735f => 11
-	i64 3571415421602489686, ; 7: System.Runtime.dll => 0x319037675df7e556 => 8
-	i64 3716579019761409177, ; 8: netstandard.dll => 0x3393f0ed5c8c5c99 => 10
-	i64 6357457916754632952, ; 9: _Microsoft.Android.Resource.Designer => 0x583a3a4ac2a7a0f8 => 0
-	i64 6894844156784520562, ; 10: System.Numerics.Vectors => 0x5faf683aead1ad72 => 6
-	i64 7270811800166795866, ; 11: System.Linq => 0x64e71ccf51a90a5a => 5
-	i64 7714652370974252055, ; 12: System.Private.CoreLib => 0x6b0ff375198b9c17 => 11
-	i64 8064050204834738623, ; 13: System.Collections.dll => 0x6fe942efa61731bf => 3
-	i64 8167236081217502503, ; 14: Java.Interop.dll => 0x7157d9f1a9b8fd27 => 12
-	i64 8185542183669246576, ; 15: System.Collections => 0x7198e33f4794aa70 => 3
-	i64 8626175481042262068, ; 16: Java.Interop => 0x77b654e585b55834 => 12
-	i64 9808709177481450983, ; 17: Mono.Android.dll => 0x881f890734e555e7 => 14
-	i64 11334880471425336825, ; 18: RAZR_PointCRep.Android.dll => 0x9d4d95bbe6d1c5f9 => 2
-	i64 11485890710487134646, ; 19: System.Runtime.InteropServices => 0x9f6614bf0f8b71b6 => 7
-	i64 11597940890313164233, ; 20: netstandard => 0xa0f429ca8d1805c9 => 10
-	i64 12475113361194491050, ; 21: _Microsoft.Android.Resource.Designer.dll => 0xad2081818aba1caa => 0
-	i64 13029669184510158566, ; 22: StereoKit.dll => 0xb4d2af16d394e6e6 => 1
-	i64 13343850469010654401, ; 23: Mono.Android.Runtime.dll => 0xb92ee14d854f44c1 => 13
-	i64 13881769479078963060, ; 24: System.Console.dll => 0xc0a5f3cade5c6774 => 4
-	i64 14978342719919667747, ; 25: StereoKit => 0xcfddc35858deba23 => 1
-	i64 15100350948730631304, ; 26: RAZR_PointCRep.Android => 0xd18f392ecad27488 => 2
-	i64 15133485256822086103, ; 27: System.Linq.dll => 0xd204f0a9127dd9d7 => 5
-	i64 15527772828719725935, ; 28: System.Console => 0xd77dbb1e38cd3d6f => 4
-	i64 17712670374920797664 ; 29: System.Runtime.InteropServices.dll => 0xf5d00bdc38bd3de0 => 7
+@assembly_image_cache_hashes = dso_local local_unnamed_addr constant [50 x i64] [
+	i64 120698629574877762, ; 0: Mono.Android => 0x1accec39cafe242 => 24
+	i64 750875890346172408, ; 1: System.Threading.Thread => 0xa6ba5a4da7d1ff8 => 19
+	i64 1476839205573959279, ; 2: System.Net.Primitives.dll => 0x147ec96ece9b1e6f => 12
+	i64 1513467482682125403, ; 3: Mono.Android.Runtime => 0x1500eaa8245f6c5b => 23
+	i64 1537168428375924959, ; 4: System.Threading.Thread.dll => 0x15551e8a954ae0df => 19
+	i64 1767386781656293639, ; 5: System.Private.Uri.dll => 0x188704e9f5582107 => 15
+	i64 2287834202362508563, ; 6: System.Collections.Concurrent => 0x1fc00515e8ce7513 => 3
+	i64 2497223385847772520, ; 7: System.Runtime => 0x22a7eb7046413568 => 17
+	i64 3311221304742556517, ; 8: System.Numerics.Vectors.dll => 0x2df3d23ba9e2b365 => 14
+	i64 3551103847008531295, ; 9: System.Private.CoreLib.dll => 0x31480e226177735f => 21
+	i64 3571415421602489686, ; 10: System.Runtime.dll => 0x319037675df7e556 => 17
+	i64 3716579019761409177, ; 11: netstandard.dll => 0x3393f0ed5c8c5c99 => 20
+	i64 3933965368022646939, ; 12: System.Net.Requests => 0x369840a8bfadc09b => 13
+	i64 5570799893513421663, ; 13: System.IO.Compression.Brotli => 0x4d4f74fcdfa6c35f => 8
+	i64 5573260873512690141, ; 14: System.Security.Cryptography.dll => 0x4d58333c6e4ea1dd => 18
+	i64 6357457916754632952, ; 15: _Microsoft.Android.Resource.Designer => 0x583a3a4ac2a7a0f8 => 0
+	i64 6894844156784520562, ; 16: System.Numerics.Vectors => 0x5faf683aead1ad72 => 14
+	i64 7270811800166795866, ; 17: System.Linq => 0x64e71ccf51a90a5a => 10
+	i64 7654504624184590948, ; 18: System.Net.Http => 0x6a3a4366801b8264 => 11
+	i64 7714652370974252055, ; 19: System.Private.CoreLib => 0x6b0ff375198b9c17 => 21
+	i64 8064050204834738623, ; 20: System.Collections.dll => 0x6fe942efa61731bf => 5
+	i64 8087206902342787202, ; 21: System.Diagnostics.DiagnosticSource => 0x703b87d46f3aa082 => 7
+	i64 8167236081217502503, ; 22: Java.Interop.dll => 0x7157d9f1a9b8fd27 => 22
+	i64 8185542183669246576, ; 23: System.Collections => 0x7198e33f4794aa70 => 5
+	i64 8368701292315763008, ; 24: System.Security.Cryptography => 0x7423997c6fd56140 => 18
+	i64 8563666267364444763, ; 25: System.Private.Uri => 0x76d841191140ca5b => 15
+	i64 8626175481042262068, ; 26: Java.Interop => 0x77b654e585b55834 => 22
+	i64 8725526185868997716, ; 27: System.Diagnostics.DiagnosticSource.dll => 0x79174bd613173454 => 7
+	i64 9702891218465930390, ; 28: System.Collections.NonGeneric.dll => 0x86a79827b2eb3c96 => 4
+	i64 9808709177481450983, ; 29: Mono.Android.dll => 0x881f890734e555e7 => 24
+	i64 10038780035334861115, ; 30: System.Net.Http.dll => 0x8b50e941206af13b => 11
+	i64 10785150219063592792, ; 31: System.Net.Primitives => 0x95ac8cfb68830758 => 12
+	i64 11334880471425336825, ; 32: RAZR_PointCRep.Android.dll => 0x9d4d95bbe6d1c5f9 => 2
+	i64 11485890710487134646, ; 33: System.Runtime.InteropServices => 0x9f6614bf0f8b71b6 => 16
+	i64 11597940890313164233, ; 34: netstandard => 0xa0f429ca8d1805c9 => 20
+	i64 12475113361194491050, ; 35: _Microsoft.Android.Resource.Designer.dll => 0xad2081818aba1caa => 0
+	i64 12550732019250633519, ; 36: System.IO.Compression => 0xae2d28465e8e1b2f => 9
+	i64 13029669184510158566, ; 37: StereoKit.dll => 0xb4d2af16d394e6e6 => 1
+	i64 13343850469010654401, ; 38: Mono.Android.Runtime.dll => 0xb92ee14d854f44c1 => 23
+	i64 13881769479078963060, ; 39: System.Console.dll => 0xc0a5f3cade5c6774 => 6
+	i64 14461014870687870182, ; 40: System.Net.Requests.dll => 0xc8afd8683afdece6 => 13
+	i64 14978342719919667747, ; 41: StereoKit => 0xcfddc35858deba23 => 1
+	i64 14987728460634540364, ; 42: System.IO.Compression.dll => 0xcfff1ba06622494c => 9
+	i64 15100350948730631304, ; 43: RAZR_PointCRep.Android => 0xd18f392ecad27488 => 2
+	i64 15115185479366240210, ; 44: System.IO.Compression.Brotli.dll => 0xd1c3ed1c1bc467d2 => 8
+	i64 15133485256822086103, ; 45: System.Linq.dll => 0xd204f0a9127dd9d7 => 10
+	i64 15527772828719725935, ; 46: System.Console => 0xd77dbb1e38cd3d6f => 6
+	i64 17008137082415910100, ; 47: System.Collections.NonGeneric => 0xec090a90408c8cd4 => 4
+	i64 17712670374920797664, ; 48: System.Runtime.InteropServices.dll => 0xf5d00bdc38bd3de0 => 16
+	i64 18245806341561545090 ; 49: System.Collections.Concurrent.dll => 0xfd3620327d587182 => 3
 ], align 8
 
-@assembly_image_cache_indices = dso_local local_unnamed_addr constant [30 x i32] [
-	i32 14, ; 0
-	i32 9, ; 1
-	i32 13, ; 2
-	i32 9, ; 3
-	i32 8, ; 4
-	i32 6, ; 5
-	i32 11, ; 6
-	i32 8, ; 7
-	i32 10, ; 8
-	i32 0, ; 9
-	i32 6, ; 10
-	i32 5, ; 11
-	i32 11, ; 12
-	i32 3, ; 13
-	i32 12, ; 14
-	i32 3, ; 15
-	i32 12, ; 16
-	i32 14, ; 17
-	i32 2, ; 18
-	i32 7, ; 19
-	i32 10, ; 20
-	i32 0, ; 21
-	i32 1, ; 22
-	i32 13, ; 23
-	i32 4, ; 24
-	i32 1, ; 25
-	i32 2, ; 26
-	i32 5, ; 27
+@assembly_image_cache_indices = dso_local local_unnamed_addr constant [50 x i32] [
+	i32 24, ; 0
+	i32 19, ; 1
+	i32 12, ; 2
+	i32 23, ; 3
+	i32 19, ; 4
+	i32 15, ; 5
+	i32 3, ; 6
+	i32 17, ; 7
+	i32 14, ; 8
+	i32 21, ; 9
+	i32 17, ; 10
+	i32 20, ; 11
+	i32 13, ; 12
+	i32 8, ; 13
+	i32 18, ; 14
+	i32 0, ; 15
+	i32 14, ; 16
+	i32 10, ; 17
+	i32 11, ; 18
+	i32 21, ; 19
+	i32 5, ; 20
+	i32 7, ; 21
+	i32 22, ; 22
+	i32 5, ; 23
+	i32 18, ; 24
+	i32 15, ; 25
+	i32 22, ; 26
+	i32 7, ; 27
 	i32 4, ; 28
-	i32 7 ; 29
+	i32 24, ; 29
+	i32 11, ; 30
+	i32 12, ; 31
+	i32 2, ; 32
+	i32 16, ; 33
+	i32 20, ; 34
+	i32 0, ; 35
+	i32 9, ; 36
+	i32 1, ; 37
+	i32 23, ; 38
+	i32 6, ; 39
+	i32 13, ; 40
+	i32 1, ; 41
+	i32 9, ; 42
+	i32 2, ; 43
+	i32 8, ; 44
+	i32 10, ; 45
+	i32 6, ; 46
+	i32 4, ; 47
+	i32 16, ; 48
+	i32 3 ; 49
 ], align 4
 
 @marshal_methods_number_of_classes = dso_local local_unnamed_addr constant i32 0, align 4

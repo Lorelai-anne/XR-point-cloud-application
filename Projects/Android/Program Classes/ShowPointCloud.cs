@@ -4,6 +4,7 @@ using RAZR_PointCRep.Tools;
 using StereoKit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -107,9 +108,10 @@ namespace RAZR_PointCRep.Show
         PointCloud cloud;
         float pointSize = 0.003f;
 
-        public void ASCIIParse(string fileName)
+        public async Task ASCIIParse(string fileName)
         {
-            string[] lines = Platform.ReadFileText(fileName).Split("\n"); // Reads file and splits into array at every new line
+            string[] lines;
+            lines = Platform.ReadFileText(fileName).Split("\n"); // Reads file and splits into array at every new line
             Vertex[] pointss = new Vertex[lines.Length * 4]; //Creating Vertex Array with the size of lines[], So you can reuse the CreatePointcloud(Vertex[]) instead of creating new one
             bool readingPoints = false;
             int i = 0;

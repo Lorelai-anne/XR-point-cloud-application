@@ -38,7 +38,7 @@ public static class Program
 
     static Pose window2Pose = Matrix.TR(0.2f, -0.1f, -0.5f, Quat.LookDir(-Vec3.Forward)).Pose;
 
-    public static SpatialEntityPoseHandler handler; //making it public static so i can access outside of file
+    public static SpatialEntityPoseHandler handler; //making it public static so i can access anchor pose outside of class
 
     static void Main(string[] args)
     {
@@ -71,7 +71,7 @@ public static class Program
 
         Init();
 
-        int anchor = 0;
+        int anchorNum = 0; //numbers of anchors currently initializes
         Pose cubePose = new Pose(0, 0, -0.5f);
         Model cube = Model.FromMesh(
             Mesh.GenerateCube(Vec3.One * 0.1f),
@@ -83,7 +83,6 @@ public static class Program
             Step();
 
             float panelSize = 0.5f;
-            bool step = !stepper.Enabled; // For passthrough toggle, checks if passthrough is enabled
             Guid? selectedAnchorId = null;
 
             UI.WindowBegin("Spatial Anchor Menu", ref window2Pose, new Vec2(30, 0) * U.cm);
@@ -95,12 +94,12 @@ public static class Program
             if (spatialEntityStepper.Available)
             {
                 UI.Label("FB Spatial Entity EXT available!");
-                if (UI.Button("Create Anchor") && anchor == 0)
+                if (UI.Button("Create Anchor") && anchorNum == 0) //Currently only allowing 1 spatial anchor at a time to be in the scene
                 {
-                    anchor++;
+                    anchorNum++;
                     // We will create the anchor at the location just in front of the window
                     Vec3 anchorPosition = cubePose.position + cubePose.Forward * .05f * 0.1f;
-                    Pose pose = new Pose(anchorPosition);
+                    Pose pose = new Pose(anchorPosition, cubePose.orientation);
 
                     // We can optionally provide some callbacks for when the async operation either completes successfully or fails.
                     spatialEntityStepper.CreateAnchor(
@@ -119,7 +118,7 @@ public static class Program
                 if (UI.Button("Erase Anchor"))
                 {
                     spatialEntityStepper.DeleteAllAnchors();
-                    anchor--;
+                    anchorNum--;
                 }
 
                 // List all Anchors
@@ -134,7 +133,6 @@ public static class Program
 
                     if (UI.Button($"{anchor.Uuid.ToString().Substring(0, 14)}..."))
                     {
-                        // Unselect the anchor (if already selected) or select the anchor (if not already selected)
                         if (selectedAnchorId == anchor.Uuid)
                             selectedAnchorId = null;
                         else
@@ -145,6 +143,7 @@ public static class Program
                     if (UI.Button("Delete"))
                     {
                         spatialEntityStepper.DeleteAnchor(anchor.Uuid);
+                        anchorNum--;
                     }
 
                     if (selectedAnchorId == anchor.Uuid)
@@ -168,11 +167,11 @@ public static class Program
             // Visualize all loaded spatial anchor
             foreach (var anchor in spatialEntityStepper.Anchors)
             {
-                handler = new SpatialEntityPoseHandler(anchor.Pose);
-                handler.DrawAnchor(anchor.Pose, new Color(1, 0, 1));
+                handler = new SpatialEntityPoseHandler(anchor.Pose); //holding an object in the pose to be passed to any other scene
+                handler.DrawAnchor(anchor.Pose, new Color(1, 0, 1)); //Normally you can't see the spatial anchor, this draws a cube at the exact location
             }
-            UI.Handle("Cube", ref cubePose, cube.Bounds);
-            cube.Draw(cubePose.ToMatrix());
+            UI.Handle("Cube", ref cubePose, cube.Bounds); //Makes cubePose moveable (Cube pose is a transformative pose so whereever you move the block it will move where the pose)(CONTEXT: cubePose is what is being used for initializing an anchor so this is a moveable anchor Pose)
+            cube.Draw(cubePose.ToMatrix()); //Drawing the cube
         });
     }
 
