@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static Android.Provider.CalendarContract;
 using static RAZR_PointCRep.Spatial_Anchor.SpatialEntityFBExt;
 
@@ -108,7 +109,7 @@ namespace RAZR_PointCRep.Show
         PointCloud cloud;
         float pointSize = 0.003f;
 
-        public async Task ASCIIParse(string fileName)
+        public void ASCIIParse(string fileName)
         {
             string[] lines;
             lines = Platform.ReadFileText(fileName).Split("\n"); // Reads file and splits into array at every new line
@@ -193,7 +194,59 @@ namespace RAZR_PointCRep.Show
             cloud = new PointCloud(pointSize, points);
             cloudScale = 1;
         }
-        public void Initialize()
+        public void AsynchHTMLLoading(string fileData)
+        {
+            string[] lines;
+            lines = fileData.Split("\n"); // Reads file and splits into array at every new line
+            Vertex[] pointss = new Vertex[lines.Length * 4]; //Creating Vertex Array with the size of lines[], So you can reuse the CreatePointcloud(Vertex[]) instead of creating new one
+            bool readingPoints = false;
+            int i = 0;
+
+            foreach (string line in lines)
+            {
+                //Log.Info($"{line}");
+                if (readingPoints)
+                {
+                    string[] splitLine = line.Split(' ');
+                    if (splitLine.Length >= 3)
+                    {
+                        float x = float.Parse(splitLine[0]);
+                        float y = float.Parse(splitLine[1]);
+                        float z = float.Parse(splitLine[2]);
+
+                        pointss[i].pos = V.XYZ(x, z,-y);
+                        pointss[i].col = Color.HSV(1, 0, 1).ToLinear();
+                        i++;
+                    }
+                }
+                else
+                {
+                    Log.Info($"{line}"); // Printing out header data in debug log
+                }
+                if (line.Contains("DATA ascii")) // Checks if lines contain point cloud data not headers
+                {
+                    readingPoints = true;
+                }
+            }
+
+            // INITIALIZE MUST CONTAIN new PointCloud() OR IT WILLL CRASH & THROW NULL POINTER EXCEPTION
+            cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
+            cloudScale = 1;
+        }
+        public static async Task<string> GetFileDataAsync(string uri)
+        {
+            string fileContent = "";
+            using var client = new HttpClient();
+            var response = await client.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                fileContent = await response.Content.ReadAsStringAsync();
+                return fileContent;
+                Log.Info($"File Content: {fileContent}");
+            }
+            return fileContent;
+        }
+        public async void Initialize()
         {
             Log.Info($"INITIAL POINTCLOUD POSE POSITION : {cloudPose.position}");
             if(handler != null)
@@ -204,7 +257,7 @@ namespace RAZR_PointCRep.Show
             {
                 cloudPose = new SpatialEntityPoseHandler().PoseInfo(); //if spatial anchor doesn't exist creates new one at 0,0,0
             }
-                Log.Info($"ANCHOR POINTCLOUD POSE POSITION : {cloudPose.position}");
+            Log.Info($"ANCHOR POINTCLOUD POSE POSITION : {cloudPose.position}");
 
             ASCIIParse("ASCII.pcd"); //Reads ASCII pcd files
             //BinaryParse("Vineyard_2024-03-13-trimmed.pcd"); //Reads binary pcd files
@@ -288,7 +341,7 @@ namespace RAZR_PointCRep.Show
         bool winEn = false;
         Pose simpleWinPose = Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1)).Pose;
         Pose simpleWinPose2 = Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1)).Pose;
-        public void Step()
+        public async void Step()
         {
             bool secWin = winEn;
             Handed handed = Handed.Left;
@@ -313,6 +366,7 @@ namespace RAZR_PointCRep.Show
                 Quat.LookAt(at, across, at - down) * Quat.FromAngles(0, handed == Handed.Left ? 90 : -90, 0));
             menuPose.position += menuPose.Right * offset * 0.03f;
             menuPose.position += menuPose.Up * (size.y / 2) * U.cm;
+
             UI.WindowBegin("Point Cloud", ref menuPose);
             {
                 if (UI.Toggle("Load Model",ref secWin))
@@ -337,11 +391,15 @@ namespace RAZR_PointCRep.Show
                 UI.PanelEnd();
                 if (UI.Button("ASCII"))
                 {
-                    ASCIIParse("Cat.pcd"); //Reads ASCII pcd files
+                    ASCIIParse("ASCII.pcd"); //Reads ASCII pcd files
                 }
                 if (UI.Button("binary"))
                 {
                     BinaryParse("Vineyard_2024-03-13-trimmed.pcd"); //Reads binary pcd files
+                }
+                if(UI.Button("HTML Asynch Loading Test")){
+
+                    AsynchHTMLLoading(await GetFileDataAsync("https://raw.githubusercontent.com/LorelaiDavis/PCDDataTest/refs/heads/main/PCDData.pcd"));
                 }
             }
             UI.WindowEnd();

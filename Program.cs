@@ -9,6 +9,7 @@ using RAZR_PointCRep.Tools;
 using StereoKit;
 using StereoKit.Framework;
 using System;
+using System.Net.Http;
 using static Android.Icu.Util.LocaleData;
 
 public static class Program
@@ -99,7 +100,9 @@ public static class Program
                     anchorNum++;
                     // We will create the anchor at the location just in front of the window
                     Vec3 anchorPosition = cubePose.position + cubePose.Forward * .05f * 0.1f;
-                    Pose pose = new Pose(anchorPosition, cubePose.orientation);
+                    Pose pose = new Pose(anchorPosition);
+                    //OR if you want it to perfectly match cube
+                    //Pose pose = new Pose(anchorPosition, cubePose.orientation);
 
                     // We can optionally provide some callbacks for when the async operation either completes successfully or fails.
                     spatialEntityStepper.CreateAnchor(
