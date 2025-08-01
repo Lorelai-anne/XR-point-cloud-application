@@ -122,9 +122,12 @@ namespace RAZR_PointCRep.Show
             _model = model2; //Initializes _model default variable to Damaged Helement file as default when program starts
             //can change which model initializes at, but must initialize, otherwise throws null pointer exception and crashes
         }
+
+        Pose modelPose = Matrix.T(0.5f, 1, -.25f).Pose;
         public void Step()
         {
-            _model.Draw(Matrix.T(0.5f, 1, -.25f)); //must draw model outside of any window
+            UI.Handle("Cube", ref modelPose, _model.Bounds);
+            _model.Draw(modelPose.ToMatrix()); //must draw model outside of any window
             bool secWin = winEn;
             Handed handed = Handed.Left;
 

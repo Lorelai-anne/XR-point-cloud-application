@@ -230,7 +230,7 @@ namespace RAZR_PointCRep.Show
             }
 
             // INITIALIZE MUST CONTAIN new PointCloud() OR IT WILLL CRASH & THROW NULL POINTER EXCEPTION
-            cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
+            cloud = new PointCloud(.001f, pointss); // Creates new PointCloud
             cloudScale = 1;
         }
         public static async Task<string> GetFileDataAsync(string uri)
@@ -242,11 +242,10 @@ namespace RAZR_PointCRep.Show
             {
                 fileContent = await response.Content.ReadAsStringAsync();
                 return fileContent;
-                Log.Info($"File Content: {fileContent}");
             }
             return fileContent;
         }
-        public async void Initialize()
+        public void Initialize()
         {
             Log.Info($"INITIAL POINTCLOUD POSE POSITION : {cloudPose.position}");
             if(handler != null)
@@ -373,6 +372,8 @@ namespace RAZR_PointCRep.Show
                 {
                     winEn = !winEn; //used to initialize and uninitialize asset file window
                 }
+                UI.Label("Cloud Scale", V.XY(.04f, 0));
+                UI.SameLine();
                 UI.HSlider("Cloud Scale", ref cloudScale, 0.001f, 2, 0);
 
                 UI.PanelBegin();
@@ -384,7 +385,7 @@ namespace RAZR_PointCRep.Show
                 UI.SameLine();
                 if (UI.Radio("Perspective", !cloud.DistanceIndependantSize)) cloud.DistanceIndependantSize = false;
 
-                UI.Label("Size:", V.XY(.04f, 0)); //Adjust size of points
+                UI.Label("Point Size:", V.XY(.04f, 0)); //Adjust size of points
                 UI.SameLine();
                 if (UI.HSlider("Point Size", ref pointSize, 0.001f, 0.005f, 0))
                     cloud.PointSize = pointSize;
@@ -399,7 +400,7 @@ namespace RAZR_PointCRep.Show
                 }
                 if(UI.Button("HTML Asynch Loading Test")){
 
-                    AsynchHTMLLoading(await GetFileDataAsync("https://raw.githubusercontent.com/LorelaiDavis/PCDDataTest/refs/heads/main/PCDData.pcd"));
+                    AsynchHTMLLoading(await GetFileDataAsync("https://github.com/LorelaiDavis/PCDDataTest/blob/main/pcdTEST.pcd?raw=true")); //works but to reset you need to press the button again AND wait for the raw to update
                 }
             }
             UI.WindowEnd();

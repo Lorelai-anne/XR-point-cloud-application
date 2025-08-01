@@ -11,6 +11,7 @@ using StereoKit.Framework;
 using System;
 using System.Net.Http;
 using static Android.Icu.Util.LocaleData;
+using static RAZR_PointCRep.Spatial_Anchor.SpatialEntityFBExt;
 
 public static class Program
 {
@@ -83,7 +84,6 @@ public static class Program
         {
             Step();
 
-            float panelSize = 0.5f;
             Guid? selectedAnchorId = null;
 
             UI.WindowBegin("Spatial Anchor Menu", ref window2Pose, new Vec2(30, 0) * U.cm);
@@ -155,7 +155,6 @@ public static class Program
                         UI.Label("Located: " + anchor.LocateSuccess);
                         UI.Label(anchor.Pose.ToString());
                     }
-
                     UI.PanelEnd();
                     UI.PopId();
                 }
@@ -171,7 +170,7 @@ public static class Program
             foreach (var anchor in spatialEntityStepper.Anchors)
             {
                 handler = new SpatialEntityPoseHandler(anchor.Pose); //holding an object in the pose to be passed to any other scene
-                handler.DrawAnchor(anchor.Pose, new Color(1, 0, 1)); //Normally you can't see the spatial anchor, this draws a cube at the exact location
+                //handler.DrawAnchor(anchor.Pose, new Color(1, 0, 1)); //Normally you can't see the spatial anchor, this draws a cube at the exact location
             }
             UI.Handle("Cube", ref cubePose, cube.Bounds); //Makes cubePose moveable (Cube pose is a transformative pose so whereever you move the block it will move where the pose)(CONTEXT: cubePose is what is being used for initializing an anchor so this is a moveable anchor Pose)
             cube.Draw(cubePose.ToMatrix()); //Drawing the cube
