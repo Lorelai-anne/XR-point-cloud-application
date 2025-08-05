@@ -195,7 +195,7 @@ namespace RAZR_PointCRep.Show
                 byte g = (byte)((rgb >> 8) & 0xFF);
                 byte b = (byte)(rgb & 0xFF);
 
-                points[i].pos = V.XYZ(x, z, -y);
+                points[i].pos = V.XYZ(x, y, z);
                 points[i].col = Color.HSV(r, g, b).ToLinear();
             }
 
@@ -227,8 +227,8 @@ namespace RAZR_PointCRep.Show
                         float y = float.Parse(splitLine[1]);
                         float z = float.Parse(splitLine[2]);
 
-                        pointss[i].pos = V.XYZ(x, y, z);
-                        pointss[i].col = Color.HSV(x, y, 1).ToLinear();
+                        pointss[i].pos = V.XYZ(x, z, -y);
+                        pointss[i].col = Color.HSV(1, 0, 1).ToLinear();
                         i++;
                     }
                 }
