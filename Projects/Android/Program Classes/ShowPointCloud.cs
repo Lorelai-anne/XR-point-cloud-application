@@ -103,12 +103,16 @@ namespace RAZR_PointCRep.Show
 
         SpatialEntityPoseHandler handler = Program.handler; //initializes stepper to the spatial anchor initialized in program, if there is one
 
-        Pose cloudPose = (Matrix.T(0.2f, -0.1f, 0) * Matrix.TR(0, -0.1f, -0.6f, Quat.LookDir(0, 0, 1))).Pose;
+        Pose cloudPose;
 
         float cloudScale;
         PointCloud cloud;
         float pointSize = 0.003f;
 
+        /// <summary>
+        /// Parses through an ASCII pcd file directly built into project from the assets folder and creates a pointcloud
+        /// </summary>
+        /// <param name="fileName"></param>
         public void ASCIIParse(string fileName)
         {
             string[] lines;
@@ -129,7 +133,7 @@ namespace RAZR_PointCRep.Show
                         float y = float.Parse(splitLine[1]);
                         float z = float.Parse(splitLine[2]);
 
-                        pointss[i].pos = V.XYZ(x, y, z);
+                        pointss[i].pos = V.XYZ(x, y, z); //if pcd is sideways here is where you change orientation, each pcd parser method has one of these
                         pointss[i].col = Color.HSV(x, y, 1).ToLinear();
                         i++;
                     }
@@ -149,6 +153,10 @@ namespace RAZR_PointCRep.Show
             cloudScale = 1;
         }
 
+        /// <summary>
+        /// Parses through binary pcd file in the assets folder and creates a pointcloud
+        /// </summary>
+        /// <param name="fileName"></param>
         public void BinaryParse(string fileName) //works technically but needs optimization
         {
             byte[] fileData = Platform.ReadFileBytes(fileName);
@@ -194,6 +202,11 @@ namespace RAZR_PointCRep.Show
             cloud = new PointCloud(pointSize, points);
             cloudScale = 1;
         }
+
+        /// <summary>
+        /// Parses through ASCII pcd data taken from a link
+        /// </summary>
+        /// <param name="fileData"></param>
         public void AsynchHTMLLoading(string fileData)
         {
             string[] lines;
@@ -214,8 +227,8 @@ namespace RAZR_PointCRep.Show
                         float y = float.Parse(splitLine[1]);
                         float z = float.Parse(splitLine[2]);
 
-                        pointss[i].pos = V.XYZ(x, z,-y);
-                        pointss[i].col = Color.HSV(1, 0, 1).ToLinear();
+                        pointss[i].pos = V.XYZ(x, y, z);
+                        pointss[i].col = Color.HSV(x, y, 1).ToLinear();
                         i++;
                     }
                 }
@@ -230,9 +243,15 @@ namespace RAZR_PointCRep.Show
             }
 
             // INITIALIZE MUST CONTAIN new PointCloud() OR IT WILLL CRASH & THROW NULL POINTER EXCEPTION
-            cloud = new PointCloud(.001f, pointss); // Creates new PointCloud
+            cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
             cloudScale = 1;
         }
+
+        /// <summary>
+        /// Uses Http CLient to collect pcd data from link and returns a string of data
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
         public static async Task<string> GetFileDataAsync(string uri)
         {
             string fileContent = "";
@@ -271,11 +290,21 @@ namespace RAZR_PointCRep.Show
         Type filterType = typeof(IAsset);
         float filterScroll = 0;
         const int filterScrollCt = 12;
+
+        /// <summary>
+        /// Visualizes models in the asset window
+        /// </summary>
+        /// <param name="item"></param>
         void VisualizeModel(Model item)
         {
             UI.Model(item, V.XX(UI.LineHeight));
             UI.SameLine();
         }
+
+        /// <summary>
+        /// Updates the Asset window with the chosen filter
+        /// </summary>
+        /// <param name="type"></param>
         void UpdateFilter(Type type)
         {
             filterType = type;
@@ -287,7 +316,10 @@ namespace RAZR_PointCRep.Show
             // type!
             filteredAssets.AddRange(Assets.Type(filterType));
         }
-        // Shows Models availible to use for point clouds
+
+        /// <summary>
+        /// Shows Models availible to use for point clouds
+        /// </summary>
         //originally going to use file picker, according to research it doesn't run natively on stereokit
         public void AssetWindow()
         {
@@ -366,13 +398,14 @@ namespace RAZR_PointCRep.Show
             menuPose.position += menuPose.Right * offset * 0.03f;
             menuPose.position += menuPose.Up * (size.y / 2) * U.cm;
 
+            // Hand window
             UI.WindowBegin("Point Cloud", ref menuPose);
             {
                 if (UI.Toggle("Load Model",ref secWin))
                 {
                     winEn = !winEn; //used to initialize and uninitialize asset file window
                 }
-                UI.Label("Cloud Scale", V.XY(.04f, 0));
+                UI.Label("Cloud Scale", V.XY(.04f, 0)); //Adjusts the size of the overall point cloud
                 UI.SameLine();
                 UI.HSlider("Cloud Scale", ref cloudScale, 0.001f, 2, 0);
 
@@ -398,7 +431,7 @@ namespace RAZR_PointCRep.Show
                 {
                     BinaryParse("Vineyard_2024-03-13-trimmed.pcd"); //Reads binary pcd files
                 }
-                if(UI.Button("HTML Asynch Loading Test")){
+                if(UI.Button("HTML Loading")){
 
                     AsynchHTMLLoading(await GetFileDataAsync("https://github.com/LorelaiDavis/PCDDataTest/blob/main/pcdTEST.pcd?raw=true")); //works but to reset you need to press the button again AND wait for the raw to update
                 }

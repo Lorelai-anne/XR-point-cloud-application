@@ -31,7 +31,6 @@ namespace RAZR_PointCRep.Show
             Text.Add(message2, Matrix.S(1.25f), V.XY(.6f, 0), TextFit.Wrap, TextAlign.BottomCenter, TextAlign.BottomLeft);
             Hierarchy.Pop();
 
-            bool secWin = winEn;
             Handed handed = Handed.Left;
 
             if (!HandFacingHead(handed)) //if palm not facing head, skip window

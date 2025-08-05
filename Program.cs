@@ -9,6 +9,7 @@ using RAZR_PointCRep.Tools;
 using StereoKit;
 using StereoKit.Framework;
 using System;
+using System.Diagnostics;
 using System.Net.Http;
 using static Android.Icu.Util.LocaleData;
 using static RAZR_PointCRep.Spatial_Anchor.SpatialEntityFBExt;
@@ -25,8 +26,8 @@ public static class Program
     static SKSettings settings = new SKSettings
     {
         appName = "StereoKit C#",
-        blendPreference = DisplayBlend.AnyTransparent,
-        mode = AppMode.XR,
+        //blendPreference = DisplayBlend.Opaque,
+        //mode = AppMode.XR,
     };
 
     static Mesh floorMesh;
@@ -79,12 +80,15 @@ public static class Program
             Mesh.GenerateCube(Vec3.One * 0.1f),
             Material.UI);
 
+        bool boxVisbility = false;
+
         //SK.Run(Step, MenuSort.Shutdown);
         SK.Run(() =>
         {
             Step();
 
             Guid? selectedAnchorId = null;
+            bool passthroughToggle = !stepper.Enabled;
 
             UI.WindowBegin("Spatial Anchor Menu", ref window2Pose, new Vec2(30, 0) * U.cm);
 
@@ -92,10 +96,36 @@ public static class Program
             UI.Text("Make sure to initialize a spatial anchor before heading into any classes");
             UI.LayoutPop();
 
+            if (stepper.Available)
+            {
+                if (UI.Toggle("Passthrough Toggle", ref passthroughToggle))
+                {
+                    stepper.Enabled = !stepper.Enabled;
+                    //Log.Info($"Passthrough is {(stepper.Enabled ? "ON" : "OFF")}");
+                }
+            }
+            else
+            {
+                Log.Info("Passthrough is not availible");
+            }
+
+            if(UI.Button("Anchor Visibility"))
+            {
+                if (boxVisbility)
+                {
+                    boxVisbility = false;
+                }
+                else
+                {
+                    boxVisbility = true;
+                }
+                Log.Info($"box visibility is {(boxVisbility ? "ON" : "OFF")}");
+            }
+
             if (spatialEntityStepper.Available)
             {
                 UI.Label("FB Spatial Entity EXT available!");
-                if (UI.Button("Create Anchor") && anchorNum == 0) //Currently only allowing 1 spatial anchor at a time to be in the scene
+                if (UI.Button("Create Anchor") && spatialEntityStepper.AnchorCount == 0) //Currently only allowing 1 spatial anchor at a time to be in the scene
                 {
                     anchorNum++;
                     // We will create the anchor at the location just in front of the window
@@ -114,14 +144,24 @@ public static class Program
                 UI.SameLine();
 
                 if (UI.Button("Load Anchor"))
+                {
                     spatialEntityStepper.LoadAllAnchors();
+                    if(spatialEntityStepper.AnchorCount != 0 && anchorNum == 0)
+                    {
+                        anchorNum++;
+                    }
+                    Log.Info($"In Load, number of anchors is {anchorNum}");
+                }
+
 
                 UI.SameLine();
 
                 if (UI.Button("Erase Anchor"))
                 {
                     spatialEntityStepper.DeleteAllAnchors();
-                    anchorNum--;
+                    if(anchorNum != 0)
+                        anchorNum = 0;
+                    Log.Info($"In Erase, number of anchors is {anchorNum}");
                 }
 
                 // List all Anchors
@@ -147,6 +187,7 @@ public static class Program
                     {
                         spatialEntityStepper.DeleteAnchor(anchor.Uuid);
                         anchorNum--;
+                        Log.Info($"In Delete number of anchors is {anchorNum}");
                     }
 
                     if (selectedAnchorId == anchor.Uuid)
@@ -171,6 +212,11 @@ public static class Program
             {
                 handler = new SpatialEntityPoseHandler(anchor.Pose); //holding an object in the pose to be passed to any other scene
                 //handler.DrawAnchor(anchor.Pose, new Color(1, 0, 1)); //Normally you can't see the spatial anchor, this draws a cube at the exact location
+
+                if (boxVisbility)
+                {
+                    handler.DrawAnchor(anchor.Pose, new Color(1, 0, 1));
+                }
             }
             UI.Handle("Cube", ref cubePose, cube.Bounds); //Makes cubePose moveable (Cube pose is a transformative pose so whereever you move the block it will move where the pose)(CONTEXT: cubePose is what is being used for initializing an anchor so this is a moveable anchor Pose)
             cube.Draw(cubePose.ToMatrix()); //Drawing the cube
@@ -184,7 +230,7 @@ public static class Program
         floorMat.QueueOffset = -11;
         floorMat["radius"] = new Vec4(5, 10, 0, 0);
 
-        floorMesh = Mesh.GeneratePlane(V.XY(40, 40), Vec3.Up, Vec3.Forward);
+        //floorMesh = Mesh.GeneratePlane(V.XY(40, 40), Vec3.Up, Vec3.Forward);
         powerButton = Sprite.FromTex(Tex.FromFile("power.png"));
 
         MenuSort.FindScenes();
@@ -203,8 +249,6 @@ public static class Program
         }
     }
 
-    //////////////////////
-
     static void Step()
     {
         if (Input.Key(Key.Esc).IsJustActive())
@@ -221,8 +265,8 @@ public static class Program
         }
 
         // If we can't see the world, we'll draw a floor!
-        if (Device.DisplayBlend == DisplayBlend.Opaque)
-            floorMesh.Draw(floorMat, World.HasBounds ? World.BoundsPose.ToMatrix() : Matrix.T(0, -1.5f, 0), Color.White);
+        //if (Device.DisplayBlend == DisplayBlend.Opaque)
+            //floorMesh.Draw(floorMat, World.HasBounds ? World.BoundsPose.ToMatrix() : Matrix.T(0, -1.5f, 0), Color.White);
 
         CheckFocus();
         MenuSort.Update();

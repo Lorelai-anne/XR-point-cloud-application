@@ -4,6 +4,48 @@
         <name>RAZR_PointCRep.Android</name>
     </assembly>
     <members>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.ASCIIParse(System.String)">
+            <summary>
+            Parses through an ASCII pcd file directly built into project from the assets folder and creates a pointcloud
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.BinaryParse(System.String)">
+            <summary>
+            Parses through binary pcd file in the assets folder and creates a pointcloud
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.AsynchHTMLLoading(System.String)">
+            <summary>
+            Parses through ASCII pcd data taken from a link
+            </summary>
+            <param name="fileData"></param>
+        </member>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.GetFileDataAsync(System.String)">
+            <summary>
+            Uses Http CLient to collect pcd data from link and returns a string of data
+            </summary>
+            <param name="uri"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.VisualizeModel(StereoKit.Model)">
+            <summary>
+            Visualizes models in the asset window
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.UpdateFilter(System.Type)">
+            <summary>
+            Updates the Asset window with the chosen filter
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.AssetWindow">
+            <summary>
+            Shows Models availible to use for point clouds
+            </summary>
+        </member>
         <member name="T:RAZR_PointCRep.Spatial_Anchor.del_xrCreateSpatialAnchorFB">
             <summary>
             Creates a Spatial Anchor using the specified tracking origin and pose relative to the specified tracking origin.

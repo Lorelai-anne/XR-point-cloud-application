@@ -115,7 +115,6 @@ namespace RAZR_PointCRep.Show
         }
         Model model2 = Model.FromFile("DamagedHelmet.gltf");
         Model model3 = Model.FromFile("Cosmonaut.glb");
-        Model model1 = Model.FromFile("Vineyard_2024-03-13-trimmed.pcd");
         Model model6 = Model.FromFile("suzanne_bin.stl");
         public void Initialize()
         {
