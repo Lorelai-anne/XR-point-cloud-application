@@ -195,7 +195,7 @@ namespace RAZR_PointCRep.Show
                 byte g = (byte)((rgb >> 8) & 0xFF);
                 byte b = (byte)(rgb & 0xFF);
 
-                points[i].pos = V.XYZ(x, y, z);
+                points[i].pos = V.XYZ(x, z, -y);
                 points[i].col = Color.HSV(r, g, b).ToLinear();
             }
 
