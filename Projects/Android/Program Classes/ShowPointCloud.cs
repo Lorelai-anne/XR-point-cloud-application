@@ -96,6 +96,51 @@ namespace RAZR_PointCRep.Show
 {
     internal class ShowPointCloud : IClass
     {
+        public static Vertex[] VoxelDownsample(Vertex[] points, float voxelSize)
+        {
+            var voxelSums = new Dictionary<(int, int, int), (Vec3 posSum, float r, float g, float b, float a, int count)>();
+
+            foreach (var p in points)
+            {
+                var key = (
+                    (int)(p.pos.x / voxelSize),
+                    (int)(p.pos.y / voxelSize),
+                    (int)(p.pos.z / voxelSize)
+                );
+
+                if (!voxelSums.ContainsKey(key))
+                {
+                    voxelSums[key] = (p.pos, p.col.r, p.col.g, p.col.b, p.col.a, 1);
+                }
+                else
+                {
+                    var existing = voxelSums[key];
+                    voxelSums[key] = (
+                        existing.posSum + p.pos,
+                        existing.r + p.col.r,
+                        existing.g + p.col.g,
+                        existing.b + p.col.b,
+                        existing.a + p.col.a,
+                        existing.count + 1
+                    );
+                }
+            }
+
+            var downsampled = new List<Vertex>();
+            foreach (var entry in voxelSums.Values)
+            {
+                Vec3 avgPos = entry.posSum / entry.count;
+                Color avgColor = new Color(
+                    entry.r / entry.count,
+                    entry.g / entry.count,
+                    entry.b / entry.count,
+                    entry.a / entry.count
+                );
+
+                downsampled.Add(new Vertex(avgPos, Vec3.Forward, Vec2.Zero, avgColor));
+            }
+            return downsampled.ToArray();
+        }
         Model model2 = Model.FromFile("DamagedHelmet.gltf");
         Model model3 = Model.FromFile("Cosmonaut.glb");
         Model model6 = Model.FromFile("suzanne_bin.stl");
@@ -198,8 +243,10 @@ namespace RAZR_PointCRep.Show
                 points[i].pos = V.XYZ(x, z, -y);
                 points[i].col = Color.HSV(r, g, b).ToLinear();
             }
+            float voxelSize = 0.01f;
 
-            cloud = new PointCloud(pointSize, points);
+            Vertex[] downsampled = VoxelDownsample(points, voxelSize);
+            cloud = new PointCloud(pointSize, downsampled);
             cloudScale = 1;
         }
 

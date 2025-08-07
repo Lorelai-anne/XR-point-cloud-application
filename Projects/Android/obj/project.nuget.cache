@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "3PBvMn2Pros=",
+  "dgSpecHash": "v++Ei5p6kjs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
+  "projectFilePath": "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\lorelai.davis\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.17\\microsoft.net.illink.tasks.8.0.17.nupkg.sha512",
-    "C:\\Users\\lorelai.davis\\.nuget\\packages\\stereokit\\0.3.10\\stereokit.0.3.10.nupkg.sha512",
-    "C:\\Users\\lorelai.davis\\.nuget\\packages\\system.numerics.vectors\\4.6.0\\system.numerics.vectors.4.6.0.nupkg.sha512",
-    "C:\\Users\\lorelai.davis\\.nuget\\packages\\microsoft.android.runtime.34.android-arm64\\34.0.154\\microsoft.android.runtime.34.android-arm64.34.0.154.nupkg.sha512",
-    "C:\\Users\\lorelai.davis\\.nuget\\packages\\microsoft.android.ref.34\\34.0.154\\microsoft.android.ref.34.34.0.154.nupkg.sha512"
+    "C:\\Users\\Lorel\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.18\\microsoft.net.illink.tasks.8.0.18.nupkg.sha512",
+    "C:\\Users\\Lorel\\.nuget\\packages\\stereokit\\0.3.10\\stereokit.0.3.10.nupkg.sha512",
+    "C:\\Users\\Lorel\\.nuget\\packages\\system.numerics.vectors\\4.6.0\\system.numerics.vectors.4.6.0.nupkg.sha512",
+    "C:\\Users\\Lorel\\.nuget\\packages\\microsoft.android.runtime.34.android-arm64\\34.0.154\\microsoft.android.runtime.34.android-arm64.34.0.154.nupkg.sha512",
+    "C:\\Users\\Lorel\\.nuget\\packages\\microsoft.android.ref.34\\34.0.154\\microsoft.android.ref.34.34.0.154.nupkg.sha512"
   ],
   "logs": []
 }
