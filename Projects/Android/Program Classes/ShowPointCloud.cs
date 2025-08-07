@@ -96,25 +96,42 @@ namespace RAZR_PointCRep.Show
 {
     internal class ShowPointCloud : IClass
     {
+        struct VoxelKey
+        {
+            public int x, y, z;
+
+            public VoxelKey(int x, int y, int z)
+            {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+            }
+
+            public override bool Equals(object obj) =>
+                obj is VoxelKey other && x == other.x && y == other.y && z == other.z;
+
+            public override int GetHashCode() =>
+                (x * 73856093) ^ (y * 19349663) ^ (z * 83492791); // Prime-based hashing
+        }
+
         public static Vertex[] VoxelDownsample(Vertex[] points, float voxelSize)
         {
-            var voxelSums = new Dictionary<(int, int, int), (Vec3 posSum, float r, float g, float b, float a, int count)>();
+            var voxelSums = new Dictionary<VoxelKey, (Vec3 posSum, float r, float g, float b, float a, int count)>();
 
             foreach (var p in points)
             {
-                var key = (
+                var key = new VoxelKey(
                     (int)(p.pos.x / voxelSize),
                     (int)(p.pos.y / voxelSize),
                     (int)(p.pos.z / voxelSize)
                 );
 
-                if (!voxelSums.ContainsKey(key))
+                if (!voxelSums.TryGetValue(key, out var existing))
                 {
                     voxelSums[key] = (p.pos, p.col.r, p.col.g, p.col.b, p.col.a, 1);
                 }
                 else
                 {
-                    var existing = voxelSums[key];
                     voxelSums[key] = (
                         existing.posSum + p.pos,
                         existing.r + p.col.r,
@@ -126,7 +143,7 @@ namespace RAZR_PointCRep.Show
                 }
             }
 
-            var downsampled = new List<Vertex>();
+            var downsampled = new List<Vertex>(voxelSums.Count);
             foreach (var entry in voxelSums.Values)
             {
                 Vec3 avgPos = entry.posSum / entry.count;
@@ -141,6 +158,8 @@ namespace RAZR_PointCRep.Show
             }
             return downsampled.ToArray();
         }
+
+
         Model model2 = Model.FromFile("DamagedHelmet.gltf");
         Model model3 = Model.FromFile("Cosmonaut.glb");
         Model model6 = Model.FromFile("suzanne_bin.stl");
@@ -245,7 +264,10 @@ namespace RAZR_PointCRep.Show
             }
             float voxelSize = 0.01f;
 
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             Vertex[] downsampled = VoxelDownsample(points, voxelSize);
+            stopwatch.Stop();
+            Log.Info($"Downsampling took: {stopwatch.ElapsedMilliseconds} ms");
             cloud = new PointCloud(pointSize, downsampled);
             cloudScale = 1;
         }
