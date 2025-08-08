@@ -1,4 +1,3 @@
-![Logo](Media/ResonantSciencesLogo.png)
 # RAZR Point Cloud Representation - RAZR_PointCRep
 
 ## Table of Contents
@@ -9,7 +8,6 @@
   - [Opening & Running the project](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#opening--running-the-project)
 - [Features](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#features)
 - [FAQ](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#faq)
-- [Documents](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#documents)
 
 ## About
 RAZR_PointCRep is a simple VR application for turning pcd file data into visible 3d point clouds. The application uses the open source library [Stereokit](https://github.com/StereoKit/StereoKit)<br>
@@ -87,9 +85,3 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
 
 ### The application exits when I exit out of the HTTP point cloud
   The application *sometimes* crashes when you try to switch out of the HTTP point cloud. If this happens rebuild it on a debug build instead of release.
-
-
-## Documents
-[Current github for HTTP Loading](https://github.com/LorelaiDavis/PCDDataTest) - using github raw link of the pcd file <br>
-[Powerpoint Presentation](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/LorelaiDavisSummer2025-PCD-VR.pptx) - final presentation of project <br>
-[Research Document](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/VR%20headset%20research.docx) - Initial Research, includes other platforms that can be used and a list of stereokit dependencies
