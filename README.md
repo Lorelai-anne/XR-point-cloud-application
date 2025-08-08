@@ -87,6 +87,6 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
   The application *sometimes* crashes when you try to switch out of the HTTP point cloud. If this happens rebuild it on a debug build instead of release.
 
 
-#### Documents
-[Powerpoint](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/LorelaiDavisSummer2025-PCD-VR.pptx)
+## Documents
+[Powerpoint](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/LorelaiDavisSummer2025-PCD-VR.pptx)<br>
 [Research Document](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/VR%20headset%20research.docx)
