@@ -1,4 +1,4 @@
-![Logo](Screenshots/ResonantSciencesLogo.png)
+![Logo](Media/ResonantSciencesLogo.png)
 # RAZR Point Cloud Representation - RAZR_PointCRep
 
 ## Table of Contents
@@ -40,12 +40,12 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
    - .Net desktop development
    <br>**++Individual Components**<br>
    - USB device connectivity
-#### Opening the project
+#### Opening & running the project
 1. Copy this github repository onto your computer
-2. Locate the RAZR_PointCRep.Android.csproj in file explorer and open in visual studio
+2. Locate the RAZR_PointCRep.Android.csproj in file explorer and double click the csproj file to open in visual studio
    - enable show all files if not all files are appearing in the code editor
 3. If everything is set up correctly you should be able to run in in the editor
-![Screenshot](Screenshots/VisualStudioRun.png)
+![Screenshot](Media/VisualStudioRun.png)
 
 ## Features
 **This project has 3 main features**
@@ -70,17 +70,22 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
   or you can use the [Meta Quest Developer Hub](https://developers.meta.com/horizon/downloads/package/oculus-developer-hub-win/), my personal reccomendation out of the two
 
 ### Which files do what
-#### Program.cs
+  #### Program.cs
   - Think of this almost as your "main class", stuff implemented here will stay throughout the entire play time. This is where spatial anchors and passthrough are called
-#### [Program Classes folder](https://github.com/LorelaiDavis/RAZR_PointCRep/tree/main/Projects/Android/Program%20Classes)
+  #### [Program Classes folder](https://github.com/LorelaiDavis/RAZR_PointCRep/tree/main/Projects/Android/Program%20Classes)
   - These contain classes implementing the IClass interface that will appear in the class menu when using the application
-#### [Spatial Anchor folder](https://github.com/LorelaiDavis/RAZR_PointCRep/tree/main/Projects/Android/Spatial%20Anchor)
+  #### [Spatial Anchor folder](https://github.com/LorelaiDavis/RAZR_PointCRep/tree/main/Projects/Android/Spatial%20Anchor)
   - Contains all files related to spatial anchors
-#### [Tools folder](https://github.com/LorelaiDavis/RAZR_PointCRep/tree/main/Projects/Android/Tools)
+  #### [Tools folder](https://github.com/LorelaiDavis/RAZR_PointCRep/tree/main/Projects/Android/Tools)
   - Files such as IClass, Menu Sort for the Asset Menu's, and PassthroughFBExt to enable passthrough on the meta quest
 
-### When I'm using the binary point cloud in play, it's not loading
-  As of right now loading for the binary point cloud takes about 15900 ms or 16 seconds to fully load. Due to the size of the file being used and the downsampling of the data points to make it easier to look at. Give it about 20 seconds and if it still does not load, rebuild the project and try again.
+### When I'm using the binary point cloud in play, it's freezing
+  As of the most recent commit the binary point cloud, on release builds, takes about 8 seconds to load and, on debug builds, about 16.
+  <br>My best tip is as it loads, stay still as the point cloud loads to reduce visual strain and wait a maximum of 20 seconds. If it has not loaded by then, exit out of the program and rebuild it to try again.
 
 ### The application exits when I exit out of the HTTP point cloud
-  The application sometimes crashes when you try to switch out of the HTTP cloud when in a release build, if you continue to have the issue try a debug build instead
+  The application *sometimes* crashes when you try to switch out of the HTTP point cloud. If this happens rebuild it on a debug build instead of release.
+
+
+#### Documents
+
