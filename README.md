@@ -9,7 +9,7 @@
   - [Opening & Running the project](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#opening--running-the-project)
 - [Features](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#features)
 - [FAQ](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#faq)
-- [Documents](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#opening--running-the-project)
+- [Documents](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#documents)
 
 ## About
 RAZR_PointCRep is a simple VR application for turning pcd file data into visible 3d point clouds. The application uses the open source library [Stereokit](https://github.com/StereoKit/StereoKit)<br>
