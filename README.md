@@ -67,7 +67,7 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
   ````
   adb devices
   # check out device is recognized
-  adb install .\path\to\file\RAZR_PointCRep.apk
+  adb install .\path\to\file\name_of_apk.apk
   ````
   or you can use the [Meta Quest Developer Hub](https://developers.meta.com/horizon/downloads/package/oculus-developer-hub-win/), my personal reccomendation out of the two
 
