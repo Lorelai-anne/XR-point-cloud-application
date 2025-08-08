@@ -44,7 +44,8 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
 #### Opening & running the project
 1. Copy this github repository onto your computer
 2. Locate the RAZR_PointCRep.Android.csproj in file explorer and double click the csproj file to open in visual studio
-   - enable show all files if not all files are appearing in the code editor
+   - enable show all files if not all files are appearing in the solution explorer
+   - If you want access to the assets folder, additionally open the other csproj in the same solution explorer
 3. If everything is set up correctly you should be able to run in in the editor
 ![Screenshot](Media/VisualStudioRun.png)
 
