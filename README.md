@@ -1,6 +1,7 @@
+![Logo](Screenshots/ResonantSciencesLogo.png)
 # RAZR Point Cloud Representation - RAZR_PointCRep
 
-## Table of Contents ##
+## Table of Contents
 - [About](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#about)
 - [Getting Setup](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#getting-setup)
   - [Headset setup](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#headset-setup)
@@ -10,7 +11,8 @@
 - [FAQ](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#faq)
 
 ## About
-RAZR_PointCRep is a simple VR application for turning pcd file data into visible 3d point clouds. The application uses the open source library [Stereokit](https://github.com/StereoKit/StereoKit)
+RAZR_PointCRep is a simple VR application for turning pcd file data into visible 3d point clouds. The application uses the open source library [Stereokit](https://github.com/StereoKit/StereoKit)<br>
+Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
 
 ## Getting setup
 #### Headset setup
