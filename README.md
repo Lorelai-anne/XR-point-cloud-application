@@ -23,7 +23,7 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
    - Settings > Advanced Settings > Enable developer settings
 #### Software setup
 > More in-depth instruction can be found on [meta](https://developers.meta.com/horizon/documentation/native/android/mobile-device-setup) & [Stereokit's own website](https://stereokit.net/Pages/Guides/Getting-Started.html)
-1. **Install adb via**
+1. **Install adb**
    - [Meta developer website](https://developers.meta.com/horizon/documentation/native/android/mobile-device-setup#install-the-oculus-adb-drivers-windows-only)
    - [Android developer website](https://developer.android.com/tools/adb)
    - Using [Chocolatey](https://chocolatey.org/install) and installing via command line
