@@ -88,4 +88,5 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
 
 
 #### Documents
-
+[Powerpoint](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/LorelaiDavisSummer2025-PCD-VR.pptx)
+[Research Document](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/VR%20headset%20research.docx)
