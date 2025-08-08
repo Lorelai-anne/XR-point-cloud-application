@@ -31,6 +31,12 @@ RAZR_PointCRep is a simple VR application for turning pcd file data into visible
       winget install Microsoft.DotNet.SDK.9
       ````
 2. Install Visual Studio 2022
+   <br>**Make sure to install the workloads**<br>
+   - Azure development
+   - .Net multiplatform app UI Development
+   - .Net desktop development
+   <br>**Individual Components**<br>
+   - USB device connectivity
 ### Opening the project
 1. Copy this github repository onto your computer
 2. Locate the RAZR_PointCRep.Android.csproj in file explorer and open in visual studio
