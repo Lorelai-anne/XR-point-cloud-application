@@ -36,7 +36,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @__compressedAssemblyData_2; uint8_t* data (0x0)
 	}, ; 2
 	%struct.CompressedAssemblyDescriptor {
-		i32 58880, ; uint32_t uncompressed_file_size (0xe600)
+		i32 60416, ; uint32_t uncompressed_file_size (0xec00)
 		i8 0, ; bool loaded
 		ptr @__compressedAssemblyData_3; uint8_t* data (0x0)
 	}, ; 3
@@ -106,7 +106,7 @@ target triple = "aarch64-unknown-linux-android21"
 		ptr @__compressedAssemblyData_16; uint8_t* data (0x0)
 	}, ; 16
 	%struct.CompressedAssemblyDescriptor {
-		i32 1447424, ; uint32_t uncompressed_file_size (0x161600)
+		i32 1451008, ; uint32_t uncompressed_file_size (0x162400)
 		i8 0, ; bool loaded
 		ptr @__compressedAssemblyData_17; uint8_t* data (0x0)
 	}, ; 17
@@ -150,7 +150,7 @@ target triple = "aarch64-unknown-linux-android21"
 @__compressedAssemblyData_0 = internal dso_local global [134656 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_1 = internal dso_local global [19016 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_2 = internal dso_local global [363008 x i8] zeroinitializer, align 1
-@__compressedAssemblyData_3 = internal dso_local global [58880 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_3 = internal dso_local global [60416 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_4 = internal dso_local global [200192 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_5 = internal dso_local global [15360 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_6 = internal dso_local global [9728 x i8] zeroinitializer, align 1
@@ -164,7 +164,7 @@ target triple = "aarch64-unknown-linux-android21"
 @__compressedAssemblyData_14 = internal dso_local global [33280 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_15 = internal dso_local global [6144 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_16 = internal dso_local global [4608 x i8] zeroinitializer, align 1
-@__compressedAssemblyData_17 = internal dso_local global [1447424 x i8] zeroinitializer, align 1
+@__compressedAssemblyData_17 = internal dso_local global [1451008 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_18 = internal dso_local global [64512 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_19 = internal dso_local global [8192 x i8] zeroinitializer, align 1
 @__compressedAssemblyData_20 = internal dso_local global [6656 x i8] zeroinitializer, align 1

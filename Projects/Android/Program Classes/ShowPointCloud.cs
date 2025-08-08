@@ -114,6 +114,12 @@ namespace RAZR_PointCRep.Show
                 (x * 73856093) ^ (y * 19349663) ^ (z * 83492791); // Prime-based hashing
         }
 
+        /// <summary>
+        /// Used to downsize very large point clouds, based off of open3D voxel downsize method
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="voxelSize"></param>
+        /// <returns></returns>
         public static Vertex[] VoxelDownsample(Vertex[] points, float voxelSize)
         {
             var voxelSums = new Dictionary<VoxelKey, (Vec3 posSum, float r, float g, float b, float a, int count)>();
@@ -216,6 +222,50 @@ namespace RAZR_PointCRep.Show
             cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
             cloudScale = 1;
         }
+        /// <summary>
+        /// Parses through ASCII pcd data taken from a link
+        /// </summary>
+        /// <param name="fileData"></param>
+        public void AsynchHTMLLoading(string fileData)
+        {
+            string[] lines;
+            lines = fileData.Split("\n"); // Reads file and splits into array at every new line
+            Vertex[] pointss = new Vertex[lines.Length * 4]; //Creating Vertex Array with the size of lines[], So you can reuse the CreatePointcloud(Vertex[]) instead of creating new one
+            bool readingPoints = false;
+            int i = 0;
+
+            foreach (string line in lines)
+            {
+                //Log.Info($"{line}");
+                if (readingPoints)
+                {
+                    string[] splitLine = line.Split(' ');
+                    if (splitLine.Length >= 3)
+                    {
+                        float x = float.Parse(splitLine[0]);
+                        float y = float.Parse(splitLine[1]);
+                        float z = float.Parse(splitLine[2]);
+
+                        pointss[i].pos = V.XYZ(x, z, -y);
+                        pointss[i].col = Color.HSV(1, 0, 1).ToLinear();
+                        i++;
+                    }
+                }
+                else
+                {
+                    Log.Info($"{line}"); // Printing out header data in debug log
+                }
+                if (line.Contains("DATA ascii")) // Checks if lines contain point cloud data not headers
+                {
+                    readingPoints = true;
+                }
+            }
+
+            // INITIALIZE MUST CONTAIN new PointCloud() OR IT WILLL CRASH & THROW NULL POINTER EXCEPTION
+            cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
+            cloudScale = 1;
+        }
+
 
         /// <summary>
         /// Parses through binary pcd file in the assets folder and creates a pointcloud
@@ -269,50 +319,6 @@ namespace RAZR_PointCRep.Show
             stopwatch.Stop();
             Log.Info($"Downsampling took: {stopwatch.ElapsedMilliseconds} ms");
             cloud = new PointCloud(pointSize, downsampled);
-            cloudScale = 1;
-        }
-
-        /// <summary>
-        /// Parses through ASCII pcd data taken from a link
-        /// </summary>
-        /// <param name="fileData"></param>
-        public void AsynchHTMLLoading(string fileData)
-        {
-            string[] lines;
-            lines = fileData.Split("\n"); // Reads file and splits into array at every new line
-            Vertex[] pointss = new Vertex[lines.Length * 4]; //Creating Vertex Array with the size of lines[], So you can reuse the CreatePointcloud(Vertex[]) instead of creating new one
-            bool readingPoints = false;
-            int i = 0;
-
-            foreach (string line in lines)
-            {
-                //Log.Info($"{line}");
-                if (readingPoints)
-                {
-                    string[] splitLine = line.Split(' ');
-                    if (splitLine.Length >= 3)
-                    {
-                        float x = float.Parse(splitLine[0]);
-                        float y = float.Parse(splitLine[1]);
-                        float z = float.Parse(splitLine[2]);
-
-                        pointss[i].pos = V.XYZ(x, z, -y);
-                        pointss[i].col = Color.HSV(1, 0, 1).ToLinear();
-                        i++;
-                    }
-                }
-                else
-                {
-                    Log.Info($"{line}"); // Printing out header data in debug log
-                }
-                if (line.Contains("DATA ascii")) // Checks if lines contain point cloud data not headers
-                {
-                    readingPoints = true;
-                }
-            }
-
-            // INITIALIZE MUST CONTAIN new PointCloud() OR IT WILLL CRASH & THROW NULL POINTER EXCEPTION
-            cloud = new PointCloud(pointSize, pointss); // Creates new PointCloud
             cloudScale = 1;
         }
 

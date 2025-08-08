@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj": {}
+    "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj": {}
   },
   "projects": {
-    "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj": {
+    "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
+        "projectUniqueName": "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
         "projectName": "RAZR_PointCRep.Android",
-        "projectPath": "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
-        "packagesPath": "C:\\Users\\Lorel\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\RAZR_PointCRep\\Projects\\Android\\obj\\",
+        "projectPath": "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\RAZR_PointCRep.Android.csproj",
+        "packagesPath": "C:\\Users\\lorelai.davis\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lorelai.davis\\source\\repos\\RAZR_PointCRep\\RAZR_PointCRep\\Projects\\Android\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Lorel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lorelai.davis\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -54,7 +54,7 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.18, )",
+              "version": "[8.0.17, )",
               "autoReferenced": true
             },
             "StereoKit": {
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

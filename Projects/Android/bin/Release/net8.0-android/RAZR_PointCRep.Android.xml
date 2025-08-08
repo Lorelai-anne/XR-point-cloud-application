@@ -4,15 +4,17 @@
         <name>RAZR_PointCRep.Android</name>
     </assembly>
     <members>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.VoxelDownsample(StereoKit.Vertex[],System.Single)">
+            <summary>
+            Used to downsize very large point clouds, based off of open3D voxel downsize method
+            </summary>
+            <param name="points"></param>
+            <param name="voxelSize"></param>
+            <returns></returns>
+        </member>
         <member name="M:RAZR_PointCRep.Show.ShowPointCloud.ASCIIParse(System.String)">
             <summary>
             Parses through an ASCII pcd file directly built into project from the assets folder and creates a pointcloud
-            </summary>
-            <param name="fileName"></param>
-        </member>
-        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.BinaryParse(System.String)">
-            <summary>
-            Parses through binary pcd file in the assets folder and creates a pointcloud
             </summary>
             <param name="fileName"></param>
         </member>
@@ -21,6 +23,12 @@
             Parses through ASCII pcd data taken from a link
             </summary>
             <param name="fileData"></param>
+        </member>
+        <member name="M:RAZR_PointCRep.Show.ShowPointCloud.BinaryParse(System.String)">
+            <summary>
+            Parses through binary pcd file in the assets folder and creates a pointcloud
+            </summary>
+            <param name="fileName"></param>
         </member>
         <member name="M:RAZR_PointCRep.Show.ShowPointCloud.GetFileDataAsync(System.String)">
             <summary>

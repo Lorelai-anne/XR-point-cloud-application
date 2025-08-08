@@ -33,7 +33,7 @@ target triple = "aarch64-unknown-linux-android21"
 ; Managed modules map
 @map_modules = dso_local local_unnamed_addr global [2 x %struct.TypeMapModule] [
 	%struct.TypeMapModule {
-		[16 x i8] c"t\9E\05;\5CX/F\B9z\8B,u\AF\0FM", ; module_uuid: 3b059e74-585c-462f-b97a-8b2c75af0f4d
+		[16 x i8] c"(u75\F0\01)K\87P\10\E7\CA\16\FA\A8", ; module_uuid: 35377528-01f0-4b29-8750-10e7ca16faa8
 		i32 1, ; uint32_t entry_count (0x1)
 		i32 0, ; uint32_t duplicate_count (0x0)
 		ptr @module0_managed_to_java, ; TypeMapModuleEntry* map

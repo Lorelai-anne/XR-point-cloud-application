@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RAZR_PointCRep")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dec3a52a3f3fea5b3371913463d05ca5e57d2a12")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+249fa43684a0487cf1f5bb7ae53ce65ed02ee9aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("RAZR_PointCRep")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RAZR_PointCRep")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
