@@ -2,13 +2,13 @@
 RAZR_PointCRep is a simple VR application for turning pcd file data into visible 3d point clouds. The application uses
 
 ## Table of Contents ##
-- [About](https://github.com/LorelaiDavis/RAZR_PointCRep/edit/main/README.md#about)
-- [Getting Setup](https://github.com/LorelaiDavis/RAZR_PointCRep/edit/main/README.md#getting-setup)
-  - [Headset setup](https://github.com/LorelaiDavis/RAZR_PointCRep/edit/main/README.md#getting-setup)
-  - [Software setup](https://github.com/LorelaiDavis/RAZR_PointCRep/edit/main/README.md#getting-setup)
-  - [Opening & Running the project] (https://github.com/LorelaiDavis/RAZR_PointCRep/edit/main/README.md#getting-setup)
-- [Features](https://github.com/LorelaiDavis/RAZR_PointCRep/edit/main/README.md#getting-setup)
-- [FAQ](https://github.com/LorelaiDavis/RAZR_PointCRep/edit/main/README.md#getting-setup)
+- [About](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#about)
+- [Getting Setup](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#getting-setup)
+  - [Headset setup](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#headset-setup)
+  - [Software setup](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#software-setup)
+  - [Opening & Running the project](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#opening-the-project)
+- [Features](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#features)
+- [FAQ](https://github.com/LorelaiDavis/RAZR_PointCRep?tab=readme-ov-file#faq)
 
 ## About ##
 
