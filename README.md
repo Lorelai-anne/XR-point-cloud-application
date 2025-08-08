@@ -88,5 +88,6 @@ Made June 2nd - August 9th 2025 for summer internship by Lorelai Davis
 
 
 ## Documents
-[Powerpoint](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/LorelaiDavisSummer2025-PCD-VR.pptx)<br>
-[Research Document](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/VR%20headset%20research.docx)
+[Current github for HTTP Loading](https://github.com/LorelaiDavis/PCDDataTest) - using github raw link of the pcd file <br>
+[Powerpoint Presentation](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/LorelaiDavisSummer2025-PCD-VR.pptx) - final presentation of project <br>
+[Research Document](https://github.com/LorelaiDavis/RAZR_PointCRep/blob/main/Media/VR%20headset%20research.docx) - Initial Research, includes other platforms that can be used and a list of stereokit dependencies
